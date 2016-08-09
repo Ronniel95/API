@@ -40,7 +40,13 @@ INSTALLED_APPS = [
     'rest_framework',
     'drf_generators',
     'BillSays',
+
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 100
+}
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
@@ -53,7 +59,7 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'API.urls'
+ROOT_URLCONF = 'BillSays.urls'
 
 TEMPLATES = [
     {
