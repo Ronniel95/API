@@ -1,38 +1,56 @@
-from django.contrib.auth.models import User, Group
-from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
-from models import Check
+from BillSays.models import Achievement, Checkelement, Checks, Debtelement, Dictachievement, DjangoMigrations, Friend, Usercheckelement, Users
 
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = User
-        fields = ('url', 'username', 'email', 'groups')
-
-
-class GroupSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Group
-        fields = ('url', 'name')
-
-class CheckSerializer(serializers.ModelSerializer):
-
-    #image = serializers.ImageField(max_length=None,use_url=True)
-
-    def create(self, validated_data):
-
-        validated_data['name'] = 'static_name'
-
-        return Check.objects.create(**validated_data)
+class AchievementSerializer(ModelSerializer):
 
     class Meta:
-        model = Check
-        fields = ('name', 'date_created', 'image')
+        model = Achievement
 
 
+class CheckelementSerializer(ModelSerializer):
 
-    #def create(self, validated_data):
-        #validated_data['name'] = 'static_name'
-        #return validated_data
+    class Meta:
+        model = Checkelement
 
 
+class ChecksSerializer(ModelSerializer):
+
+    class Meta:
+        model = Checks
+
+
+class DebtelementSerializer(ModelSerializer):
+
+    class Meta:
+        model = Debtelement
+
+
+class DictachievementSerializer(ModelSerializer):
+
+    class Meta:
+        model = Dictachievement
+
+
+class DjangoMigrationsSerializer(ModelSerializer):
+
+    class Meta:
+        model = DjangoMigrations
+
+
+class FriendSerializer(ModelSerializer):
+
+    class Meta:
+        model = Friend
+
+
+class UsercheckelementSerializer(ModelSerializer):
+
+    class Meta:
+        model = Usercheckelement
+
+
+class UsersSerializer(ModelSerializer):
+
+    class Meta:
+        model = Users
