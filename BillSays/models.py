@@ -80,7 +80,7 @@ class Friend(models.Model):
     class Meta:
         managed = False
         db_table = 'friend'
-
+#
 
 class Usercheckelement(models.Model):
     id_user_check_element = models.IntegerField(primary_key=True)
