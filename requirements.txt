@@ -42,6 +42,7 @@ gevent==1.0.1
 gevent-websocket==0.9.3
 greenlet==0.4.9
 grin==1.2.1
+gunicorn==19.6.0
 h5py==2.5.0
 idna==2.0
 ipaddress==1.0.14
