@@ -240,6 +240,8 @@ class DictachievementAPIListView(APIView):
         return Response(serializer.errors, status=400)
 
 
+
+
 class DjangoMigrationsAPIView(APIView):
 
     def get(self, request, id, format=None):
