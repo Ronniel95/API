@@ -8,6 +8,7 @@ router = SimpleRouter()
 urlpatterns = patterns('',
 
 
+
     url(r'^achievement/(?P<id>[0-9]+)$', views.AchievementAPIView.as_view()),
     url(r'^achievement/$', views.AchievementAPIListView.as_view()),
 
