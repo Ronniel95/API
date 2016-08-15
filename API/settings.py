@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'BillSays',
 
+
 ]
 
 REST_FRAMEWORK = {
@@ -78,27 +79,30 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'API.wsgi.application'
+WSGI_APPLICATION = 'API.wsgi.application',
 
 
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#        'NAME': 'API',#'d86tefod6kunc1',
+#        'USER': 'lucas63',#'xcvmsnlftkyeno',
+#        'PASSWORD': '1234',#'FU0-_f_8w7JvN6KZCQYwBiGfe9',
+#        'HOST': 'localhost',#'ec2-54-217-244-3.eu-west-1.compute.amazonaws.com',
+#        'PORT': '5432',
+#    }
+#}
+
+#SECRET_KEY = dj_database_url.config('SECRET_KEY')
+DEBUG = config('DEBUG', default=False)
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd86tefod6kunc1',#'API',
-        'USER': 'xcvmsnlftkyeno',#'lucas63',
-        'PASSWORD': 'FU0-_f_8w7JvN6KZCQYwBiGfe9',#'1234',
-        'HOST': 'ec2-54-217-244-3.eu-west-1.compute.amazonaws.com',#'localhost',
-        'PORT': '5432',
-    }
+    'default': config(
+        default=config('DATABASE_URL')
+    )
 }
-
-# Parse database configuration from $DATABASE_URL
-import dj_database_url
-DATABASES['default'] = dj_database_url.config()
-
 
 
 # Password validation
