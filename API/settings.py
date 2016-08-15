@@ -86,22 +86,27 @@ WSGI_APPLICATION = 'API.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
-DATABASES = {
-    'main': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+# Update database configuration with $DATABASE_URL.
+#import dj_database_url
+#db_from_env = dj_database_url.config(conn_max_age=500)
+#DATABASES['default'].update(db_from_env)
+
+#DATABASES = {
+#    'main': {
+#        'ENGINE': 'django.db.backends.postgresql_psycopg2',
        # 'NAME': 'API',
        # 'USER': 'lucas63',
        # 'PASSWORD': '1234',
        # 'HOST': 'localhost',
        # 'PORT': '5432',
 
-    },
+#    },
 
+import dj_database_url
+DATABASES = {
+    'default': dj_database_url.config()
+},
 
-    'default': dj_database_url.config(
-        default='sqlite:////{0}'.format(os.path.join(BASE_DIR, 'db.sqlite3'))
-    )
-}
 
 
 # Password validation
