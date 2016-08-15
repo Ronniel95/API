@@ -87,13 +87,17 @@ WSGI_APPLICATION = 'API.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'API',
-        'USER': 'lucas63',
-        'PASSWORD': '1234',
-        'HOST': 'localhost',
+        'NAME': 'd86tefod6kunc1',#'API',
+        'USER': 'xcvmsnlftkyeno',#'lucas63',
+        'PASSWORD': 'FU0-_f_8w7JvN6KZCQYwBiGfe9',#'1234',
+        'HOST': 'ec2-54-217-244-3.eu-west-1.compute.amazonaws.com',#'localhost',
         'PORT': '5432',
     }
 }
+
+# Parse database configuration from $DATABASE_URL
+import dj_database_url
+DATABASES['default'] = dj_database_url.config()
 
 
 
