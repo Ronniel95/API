@@ -102,12 +102,13 @@ WSGI_APPLICATION = 'API.wsgi.application'
 
 #    },
 
-import dj_database_url
-
-import dj_database_url
+SECRET_KEY = dj_database_url.config('SECRET_KEY')
+DEBUG = dj_database_url.config('DEBUG', default=False, cast=bool)
 DATABASES = {
-    "default": dj_database_url.config(default='postgres://localhost'),
-},
+    'default': dj_database_url.config(
+        default=dj_database_url.config('DATABASE_URL')
+    )
+}
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
 
