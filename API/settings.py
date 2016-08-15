@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+import dj_database_url
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -85,14 +87,19 @@ WSGI_APPLICATION = 'API.wsgi.application'
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
 DATABASES = {
-    'default': {
+    'main': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'API',
         'USER': 'lucas63',
         'PASSWORD': '1234',
         'HOST': 'localhost',
         'PORT': '5432',
-    }
+
+    },
+
+    'default': dj_database_url.config(
+        default='sqlite:////{0}'.format(os.path.join(BASE_DIR, 'db.sqlite3'))
+    )
 }
 
 
