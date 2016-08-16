@@ -5,7 +5,19 @@ import rest_framework_swagger
 from BillSays import views
 from views import schema_view
 
+
 router = SimpleRouter()
+from rest_framework import renderers, response, schemas
+from rest_framework.decorators import api_view, renderer_classes
+from rest_framework_swagger.renderers import OpenAPIRenderer, SwaggerUIRenderer
+
+@api_view()
+@renderer_classes([SwaggerUIRenderer, OpenAPIRenderer, renderers.CoreJSONRenderer])
+def schema_view(request):
+    generator = schemas.SchemaGenerator(title='Pastebin API')
+    return response.Response(generator.get_schema(request=request))
+
+
 urlpatterns = patterns('',
 
     url(r'^achievement/(?P<id>[0-9]+)$', views.AchievementAPIView.as_view()),
@@ -38,6 +50,6 @@ urlpatterns = patterns('',
     url(r'^', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
-
+    url('^$', schema_view),
 
 )
