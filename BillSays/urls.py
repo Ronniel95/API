@@ -2,6 +2,8 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from rest_framework.routers import SimpleRouter
 import rest_framework_swagger
+
+from API import settings
 from BillSays import views
 from views import schema_view
 
@@ -52,4 +54,8 @@ urlpatterns = patterns('',
 
     url('^$', schema_view),
 
+)
+
+urlpatterns += patterns('',
+    (r'^static/(?P<path>.*)$','django.views.static.serve',{'document_root':settings.STATIC_ROOT,'show_indexes': False}),
 )
