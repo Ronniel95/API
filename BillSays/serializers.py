@@ -54,3 +54,4 @@ class UsersSerializer(ModelSerializer):
 
     class Meta:
         model = Users
+        fields = ('id_user','name','facebook_id','date_registration','password_user')
