@@ -8,7 +8,7 @@ from views import schema_view
 router = SimpleRouter()
 urlpatterns = patterns('',
 
-    url('/', schema_view),
+    url(r'^docs/', include('rest_framework_docs.urls')),
 
     url(r'^achievement/(?P<id>[0-9]+)$', views.AchievementAPIView.as_view()),
     url(r'^achievement/$', views.AchievementAPIListView.as_view()),

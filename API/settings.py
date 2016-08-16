@@ -40,11 +40,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'rest_framework_swagger',
+    'rest_framework_docs',
     'BillSays',
 
 
 ]
+
+REST_FRAMEWORK_DOCS = {
+    'HIDE_DOCS': True  # Default: False
+}
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
