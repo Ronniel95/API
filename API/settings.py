@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'rest_framework_docs',
+    'rest_framework_swagger',
     'BillSays',
 
 
@@ -109,6 +109,24 @@ DATABASES = {
             'ec2-54-243-223-22.compute-1.amazonaws.com',
         'PORT': '5432',
     }
+}
+
+# Documentation settings
+
+SWAGGER_SETTINGS = {
+    "exclude_namespaces": [], # List URL namespaces to ignore
+    "api_version": '0.1',  # Specify your API's version
+    "api_path": "/docs/",  # Specify the path to your API not a root level
+    "enabled_methods": [  # Specify which methods to enable in Swagger UI
+        'get',
+        'post',
+        'put',
+        'patch',
+        'delete'
+    ],
+    "api_key": '(l2%=61ue!xphtji$-v-%xmua2w*2s4zbtl$#o!327b@n24q+-', # An API key
+    "is_authenticated": False,  # Set to True to enforce user authentication,
+    "is_superuser": False,  # Set to True to enforce admin only access
 }
 
 

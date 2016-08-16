@@ -1,8 +1,10 @@
+python_decouple==3.0
+dj_database_url==0.4.1
 Django==1.9.5
-django_rest_swagger==2.0.3
+matplotlib==1.5.0
+scikit_image==0.11.3
+Pillow==3.3.0
+cv2==1.0
+numpy==1.11.1
+pytesseract==0.1.6
 djangorestframework==3.4.4
-psycopg2==2.6.2
-gunicorn==19.6.0
-dj-database-url==0.4.1
-python-decouple==3.0
-drfdocs==0.0.11

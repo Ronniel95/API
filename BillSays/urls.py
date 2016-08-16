@@ -8,8 +8,6 @@ from views import schema_view
 router = SimpleRouter()
 urlpatterns = patterns('',
 
-    url(r'^docs/', include('rest_framework_docs.urls')),
-
     url(r'^achievement/(?P<id>[0-9]+)$', views.AchievementAPIView.as_view()),
     url(r'^achievement/$', views.AchievementAPIListView.as_view()),
 
@@ -38,6 +36,8 @@ urlpatterns = patterns('',
     url(r'^users/$', views.UsersAPIListView.as_view()),
 
     url(r'^', include(router.urls)),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+
+    url(r'^api-docs/', include('rest_framework_swagger.urls'))
 
 )
