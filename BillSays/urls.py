@@ -3,12 +3,12 @@ from django.contrib import admin
 from rest_framework.routers import SimpleRouter
 
 from BillSays import views
+from views import schema_view
 
 router = SimpleRouter()
 urlpatterns = patterns('',
 
-
-
+    url('/', schema_view),
 
     url(r'^achievement/(?P<id>[0-9]+)$', views.AchievementAPIView.as_view()),
     url(r'^achievement/$', views.AchievementAPIListView.as_view()),
