@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from rest_framework.routers import SimpleRouter
-
+import rest_framework_swagger
 from BillSays import views
 from views import schema_view
 
