@@ -11,7 +11,8 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
-
+import decouple
+import dj_database_url
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -79,30 +80,31 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'API.wsgi.application',
+WSGI_APPLICATION = 'API.wsgi.application'
 
 
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#        'NAME': 'API',#'d86tefod6kunc1',
-#        'USER': 'lucas63',#'xcvmsnlftkyeno',
-#        'PASSWORD': '1234',#'FU0-_f_8w7JvN6KZCQYwBiGfe9',
-#        'HOST': 'localhost',#'ec2-54-217-244-3.eu-west-1.compute.amazonaws.com',
-#        'PORT': '5432',
-#    }
-#}
-
-#SECRET_KEY = dj_database_url.config('SECRET_KEY')
-DEBUG = config('DEBUG', default=False)
 DATABASES = {
-    'default': config(
-        default=config('DATABASE_URL')
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME':
+            #'API',
+            'dcm6b473plgp9o',
+        'USER':
+            #'lucas63',
+            'hgtxjigpasgdxu',
+        'PASSWORD':
+            #'1234',
+            'UAUdl7cbfwf-HhyWO_NSiCd7Co',
+        'HOST':
+            #'localhost',
+            'ec2-54-243-223-22.compute-1.amazonaws.com',
+        'PORT': '5432',
+    }
 }
+
 
 
 # Password validation
