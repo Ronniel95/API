@@ -2,11 +2,11 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from rest_framework.routers import SimpleRouter
 import rest_framework_swagger
+from rest_framework_jwt.views import obtain_jwt_token
 
 from API import settings
 from BillSays import views
-from views import schema_view
-
+from views import schema_view, FacebookLogin
 
 router = SimpleRouter()
 from rest_framework import renderers, response, schemas
@@ -36,7 +36,6 @@ urlpatterns = patterns('',
     url(r'^dictachievement/(?P<id>[0-9]+)$', views.DictachievementAPIView.as_view()),
     url(r'^dictachievement/$', views.DictachievementAPIListView.as_view()),
 
-
     url(r'^djangomigrations/(?P<id>[0-9]+)$', views.DjangoMigrationsAPIView.as_view()),
     url(r'^djangomigrations/$', views.DjangoMigrationsAPIListView.as_view()),
 
@@ -53,6 +52,12 @@ urlpatterns = patterns('',
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
     url('^$', schema_view),
+    url(r'^rest-auth/', include('rest_auth.urls')),
+    url(r'^rest-auth/registration/', include('rest_auth.registration.urls')),
+
+    url(r'^rest-auth/facebook/$', FacebookLogin.as_view(), name='fb_login'),
+
+    url(r'^api-token-auth/', obtain_jwt_token),
 
 )
 

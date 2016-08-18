@@ -81,7 +81,6 @@ class Friend(models.Model):
         managed = False
         db_table = 'friend'
 #
-
 class Usercheckelement(models.Model):
     id_user_check_element = models.IntegerField(primary_key=True)
     checkelement_id_checkelement = models.ForeignKey(Checkelement, models.DO_NOTHING, db_column='checkelement_id_checkelement', blank=True, null=True)
