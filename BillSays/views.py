@@ -1,4 +1,5 @@
 from rest_framework.pagination import PageNumberPagination
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from BillSays.serializers import AchievementSerializer, CheckelementSerializer, ChecksSerializer, DebtelementSerializer, DictachievementSerializer, DjangoMigrationsSerializer, FriendSerializer, UsercheckelementSerializer, UsersSerializer
@@ -6,8 +7,13 @@ from BillSays.models import Achievement, Checkelement, Checks, Debtelement, Dict
 
 
 class AchievementAPIView(APIView):
-
+    """
+    dota
+    """
     def get(self, request, id, format=None):
+        """
+            dot1a
+            """
         try:
             item = Achievement.objects.get(pk=id)
             serializer = AchievementSerializer(item)
@@ -431,10 +437,11 @@ class UsersAPIListView(APIView):
 
 
 from rest_framework_swagger.renderers import OpenAPIRenderer, SwaggerUIRenderer
-from rest_framework.decorators import api_view, renderer_classes
+from rest_framework.decorators import api_view, renderer_classes, permission_classes
 from rest_framework import response, schemas
 
 @api_view()
+@permission_classes([AllowAny])
 @renderer_classes([SwaggerUIRenderer, OpenAPIRenderer])
 def schema_view(request):
     generator = schemas.SchemaGenerator(title='Bill Says API')
