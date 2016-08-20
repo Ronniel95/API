@@ -397,7 +397,6 @@ class UsersAPIView(APIView):
         try:
             item = Users.objects.get(pk=id)
         except Users.DoesNotExist:
-
             return Response(status=404)
         serializer = UsersSerializer(item, data=request.data)
         if serializer.is_valid():
@@ -444,6 +443,7 @@ def schema_view(request):
 
 from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
 from rest_auth.registration.views import SocialLoginView
+
 
 class FacebookLogin(SocialLoginView):
     adapter_class = FacebookOAuth2Adapter
