@@ -14,6 +14,7 @@ router = SimpleRouter()
 from rest_framework import renderers, response, schemas
 from rest_framework.decorators import api_view, renderer_classes
 from rest_framework_swagger.renderers import OpenAPIRenderer, SwaggerUIRenderer
+from allauth.account.views import confirm_email as allauthemailconfirmation
 
 @api_view()
 @renderer_classes([SwaggerUIRenderer, OpenAPIRenderer, renderers.CoreJSONRenderer])
@@ -40,6 +41,9 @@ urlpatterns = patterns('',
 
     # admin site
     url(r'^admin/', include(admin.site.urls)),
+
+    url(r'^rest-auth/registration/account-confirm-email/(?P<key>\w+)/$',
+    allauthemailconfirmation, name="account_confirm_email"),
 
 #    url(r'^verify-email/$', VerifyEmailView.as_view(), name='rest_verify_email'),
  #   url(r'^accounts/', include('allauth.urls')),
