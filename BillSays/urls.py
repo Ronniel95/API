@@ -45,6 +45,9 @@ urlpatterns = patterns('',
 
     url(r'^accounts/', include('allauth.urls')),
 
+    url(r'^rest-auth/registration/account-confirm-email/(?P<key>\w+)/$',
+    allauthemailconfirmation, name="account_confirm_email"),
+
 #    url(r'^verify-email/$', VerifyEmailView.as_view(), name='rest_verify_email'),
  #   url(r'^accounts/', include('allauth.urls')),
 

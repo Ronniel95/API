@@ -86,6 +86,7 @@ AUTHENTICATION_BACKENDS = (
     "allauth.account.auth_backends.AuthenticationBackend",
 )
 
+ACCOUNT_LOGOUT_ON_GET = True
 
 # auth and allauth settings
 LOGIN_REDIRECT_URL = '/'
