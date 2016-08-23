@@ -23,6 +23,8 @@ def schema_view(request):
     return response.Response(generator.get_schema(request=request))
 
 
+from django.views.generic import TemplateView, RedirectView
+
 urlpatterns = patterns('',
 
     url(r'^', include(router.urls)),
@@ -45,13 +47,9 @@ urlpatterns = patterns('',
 
     url(r'^accounts/', include('allauth.urls')),
 
-    url(r'^rest-auth/registration/account-confirm-email/(?P<key>\w+)/$',
-    allauthemailconfirmation, name="account_confirm_email"),
 
-#    url(r'^verify-email/$', VerifyEmailView.as_view(), name='rest_verify_email'),
- #   url(r'^accounts/', include('allauth.urls')),
-
-)
+    url(r'^email-verification/$',TemplateView.as_view(template_name="email_verification.html"),
+                           name='email-verification'),)
 
 urlpatterns += patterns('',
     (r'^static/(?P<path>.*)$','django.views.static.serve',{'document_root':settings.STATIC_ROOT,'show_indexes': False}),
