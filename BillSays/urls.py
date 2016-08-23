@@ -28,16 +28,21 @@ urlpatterns = patterns('',
 
     url('^docs/', schema_view),
 
+    #loginning
     url(r'^rest-auth/', include('rest_auth.urls')),
-    url(r'^rest-auth/', include('rest_auth.urls')),
+
+    #registration
     url(r'^rest-auth/registration/', include('rest_auth.registration.urls')),
+
+
+    # login via facebook
     url(r'^rest-auth/facebook/$', FacebookLogin.as_view(), name='fb_login'),
 
-    url(r'^admin/', include(admin.site.urls)), # admin site
+    # admin site
+    url(r'^admin/', include(admin.site.urls)),
 
-    url(r'^verify-email/$', VerifyEmailView.as_view(), name='rest_verify_email'),
-
-    url(r'^accounts/', include('allauth.urls')),
+#    url(r'^verify-email/$', VerifyEmailView.as_view(), name='rest_verify_email'),
+ #   url(r'^accounts/', include('allauth.urls')),
 
 )
 
