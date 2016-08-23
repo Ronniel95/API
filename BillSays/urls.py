@@ -22,8 +22,8 @@ from django.views.generic import TemplateView, RedirectView
 
 urlpatterns = patterns('',
 
-    url(r'^', TemplateView.as_view(template_name="home.html"), name='home'),
-    #url(r'^', include(router.urls)),
+    url(r'^$', TemplateView.as_view(template_name="home.html"), name='home'),
+    url(r'^', include(router.urls)),
 
     #swagger documentation for API
     url('^docs/', schema_view),
