@@ -29,7 +29,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-SITE_ID = 1
+SITE_ID = 3
 # Application definition
 
 INSTALLED_APPS = [
@@ -42,9 +42,10 @@ INSTALLED_APPS = [
     'django.contrib.sites',
 
     'rest_framework',
-    'rest_framework_swagger',
+    'rest_framework_swagger', # documentation module
 
     'BillSays',
+
     'rest_framework.authtoken',
     'rest_auth',
     'rest_auth.registration',
@@ -53,8 +54,12 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
-    'allauth.socialaccount.providers.twitter',
+
+
+
 ]
+
+REST_USE_JWT = True
 
 REST_FRAMEWORK_DOCS = {
     'HIDE_DOCS': False  # Default: False
@@ -76,7 +81,23 @@ REST_FRAMEWORK = {
 
 }
 
-REST_USE_JWT = True
+AUTHENTICATION_BACKENDS = (
+    # Needed to login by username in Django admin, regardless of `allauth`
+    "django.contrib.auth.backends.ModelBackend",
+    # `allauth` specific authentication methods, such as login by e-mail
+    "allauth.account.auth_backends.AuthenticationBackend",
+)
+
+
+# auth and allauth settings
+LOGIN_REDIRECT_URL = '/'
+SOCIALACCOUNT_QUERY_EMAIL = True
+SOCIALACCOUNT_PROVIDERS = {
+    'facebook': {
+        'SCOPE': ['email', 'publish_stream'],
+        'METHOD': 'js_sdk'  # instead of 'oauth2'
+    }
+}
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
@@ -102,6 +123,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                
             ],
         },
     },
@@ -190,14 +212,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 
-
-
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-MEDIA_ROOT=os.path.join(BASE_DIR,'Checks/')
+
 MEDIA_URL = '/Checks/'
+MEDIA_ROOT=os.path.join(BASE_DIR,'Checks/')
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
 
@@ -215,3 +237,9 @@ EMAIL_PORT = 587
 
 #This did the trick
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+
+#Facebook
+
+SOCIAL_AUTH_FACEBOOK_KEY = '1736562713290446|bbkqpUqNL8BH39SOw1Zw_rf6j2U'
+SOCIAL_AUTH_FACEBOOK_SECRET = 'b46acee6fe22458c4a1c2087d1c185bb'
