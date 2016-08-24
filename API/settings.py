@@ -64,6 +64,8 @@ INSTALLED_APPS = [
     'drf_to_s3',
     'storages',
 
+    'photologue',
+
 ]
 
 REST_USE_JWT = True
