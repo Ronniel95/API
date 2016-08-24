@@ -226,7 +226,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-MEDIA_URL = '/Checks/'
+#MEDIA_URL = '/Checks/'
 MEDIA_ROOT=os.path.join(BASE_DIR,'Checks/')
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -269,16 +269,17 @@ AWS_STORAGE_BUCKET_NAME = 'billsays'
 AWS_ACCESS_KEY_ID = 'AKIAIUXCCBDDCMATLHXA'
 AWS_SECRET_ACCESS_KEY = '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'
 
-AWS_S3_CUSTOM_DOMAIN = 'billsays.s3.amazonaws.com'
+
+AWS_S3_HOST = 's3-eu-west-1.amazonaws.com'
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 
 
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 STATICFILES_LOCATION = 'static'
-#STATIC_URL = "https://%billsays.s3.amazonaws.com/"
-#STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 MEDIAFILES_LOCATION = 'Checks'
 MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
 DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
+
