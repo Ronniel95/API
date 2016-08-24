@@ -55,6 +55,9 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
 
+    'django_dropbox',
+    'drf_generators'
+
 ]
 
 REST_USE_JWT = True
@@ -245,3 +248,10 @@ SOCIAL_AUTH_FACEBOOK_KEY = '1736562713290446|bbkqpUqNL8BH39SOw1Zw_rf6j2U'
 SOCIAL_AUTH_FACEBOOK_SECRET = 'b46acee6fe22458c4a1c2087d1c185bb'
 
 TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
+
+#dropbox
+
+DROPBOX_CONSUMER_KEY = 'z503ozdn1jw6mpr'
+DROPBOX_CONSUMER_SECRET = '2pta13cspew835w'
+DROPBOX_ACCESS_TOKEN = 'i53lqk0rzcjtqi82'
+DROPBOX_ACCESS_TOKEN_SECRET = 'd4zkw8tne7s616j'
