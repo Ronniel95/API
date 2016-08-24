@@ -22,7 +22,6 @@ from django.views.generic import TemplateView, RedirectView
 
 urlpatterns = patterns('',
 
-    url(r'^$', TemplateView.as_view(template_name="home.html"), name='home'),
     url(r'^', include(router.urls)),
 
 
@@ -45,7 +44,8 @@ urlpatterns = patterns('',
     url(r'^accounts/', include('allauth.urls')),
 
     #email verification
-    url(r'^email-verification/$',TemplateView.as_view(template_name="email_verification.html"),name='email-verification'))
+    url(r'^email-verification/$',TemplateView.as_view(template_name="email_verification.html"),
+        name='email-verification'),)
 
 urlpatterns += patterns('',(r'^static/(?P<path>.*)$','django.views.static.serve',
-     {'document_root':settings.STATIC_ROOT,'show_indexes': False})),
+     {'document_root':settings.STATIC_ROOT,'show_indexes': False}))
