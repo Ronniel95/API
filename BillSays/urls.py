@@ -9,7 +9,7 @@ from rest_framework_jwt.views import obtain_jwt_token
 
 from API import settings
 from BillSays import views
-from views import schema_view, FacebookLogin
+from views import schema_view, FacebookLogin, CheckViewSet
 
 router = SimpleRouter()
 from rest_framework import renderers, response, schemas
@@ -18,14 +18,11 @@ from rest_framework_swagger.renderers import OpenAPIRenderer, SwaggerUIRenderer
 from allauth.account.views import confirm_email as allauthemailconfirmation
 from django.views.generic import TemplateView, RedirectView
 
-
+router.register(r'checks', views.CheckViewSet)
 
 urlpatterns = patterns('',
 
     url(r'^', include(router.urls)),
-
-    url(r'^person/(?P<id>[0-9]+)$', views.PersonAPIView.as_view()),
-    url(r'^person/$', views.PersonAPIListView.as_view()),
 
     #swagger documentation for API
     url('^docs/', schema_view),
@@ -47,7 +44,12 @@ urlpatterns = patterns('',
 
     #email verification
     url(r'^email-verification/$',TemplateView.as_view(template_name="email_verification.html"),
-        name='email-verification'),)
+        name='email-verification'),
+
+    url(r'^checks/',CheckViewSet.as_view()),
+
+
+    )
 
 urlpatterns += patterns('',(r'^static/(?P<path>.*)$','django.views.static.serve',
      {'document_root':settings.STATIC_ROOT,'show_indexes': False}))

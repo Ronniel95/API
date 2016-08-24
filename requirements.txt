@@ -11,4 +11,5 @@ djangorestframework-jwt==1.8.0
 django-allauth==0.26.1
 django-dropbox==0.0.2
 drf-generators==0.2.8
-
+drf-to-s3==0.7.7
+django-storages==1.5.0

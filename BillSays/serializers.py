@@ -3,13 +3,19 @@ from dropbox import Dropbox
 from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
 
-from BillSays.models import Person
+from BillSays.models import Check
 
 
-class PersonSerializer(ModelSerializer):
+class CheckSerializer(serializers.ModelSerializer):
 
-    image_url = serializers.ImageField(max_length=None, use_url=True)
+    image = serializers.ImageField(max_length=None,use_url=True)
+
+    def create(self, validated_data):
+
+        validated_data['name'] = 'static_name'
+
+        return Check.objects.create(**validated_data)
+
     class Meta:
-        model = Person
-        fields = ('photo','image_url')
-
+        model = Check
+        fields = ('name', 'date_created', 'image')
