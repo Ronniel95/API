@@ -10,4 +10,5 @@ django-rest-auth==0.8.1
 djangorestframework-jwt==1.8.0
 django-allauth==0.26.1
 django-dropbox==0.0.2
+drf-generators==0.2.8
 
