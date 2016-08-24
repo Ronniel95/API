@@ -46,9 +46,6 @@ urlpatterns = patterns('',
     url(r'^email-verification/$',TemplateView.as_view(template_name="email_verification.html"),
         name='email-verification'),
 
-    url(r'^checks/',CheckViewSet.as_view()),
-
-
     )
 
 urlpatterns += patterns('',(r'^static/(?P<path>.*)$','django.views.static.serve',
