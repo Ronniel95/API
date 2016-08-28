@@ -9,8 +9,8 @@ from rest_framework_swagger.renderers import OpenAPIRenderer, SwaggerUIRenderer
 from rest_framework.decorators import api_view, renderer_classes
 from rest_framework import response, schemas
 
-from BillSays.models import  Check
-from BillSays.serializers import CheckSerializer
+#from BillSays.models import  Check
+#from BillSays.serializers import CheckSerializer
 
 
 @api_view()
