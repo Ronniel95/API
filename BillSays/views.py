@@ -1,4 +1,5 @@
 from rest_framework.pagination import PageNumberPagination
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
@@ -20,12 +21,8 @@ def schema_view(request):
 
 
 class FacebookLogin(SocialLoginView):
+    permission_classes = (IsAuthenticated,)
     adapter_class = FacebookOAuth2Adapter
 
 
-class CheckViewSet(ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
-    queryset = Check.objects.all()
-    serializer_class = CheckSerializer
+
