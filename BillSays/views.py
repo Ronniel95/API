@@ -14,8 +14,8 @@ from rest_framework_swagger.renderers import OpenAPIRenderer, SwaggerUIRenderer
 from rest_framework.decorators import api_view, renderer_classes
 from rest_framework import response, schemas
 
-#from BillSays.models import  Check
-#from BillSays.serializers import CheckSerializer
+# from BillSays.models import  Check
+# from BillSays.serializers import CheckSerializer
 
 from BillSays.models import Friend
 from BillSays.serializers import FriendSerializer
@@ -29,11 +29,13 @@ def schema_view(request):
 
 
 class FacebookLogin(SocialLoginView):
-    #permission_classes = (IsAuthenticated,)
+    # permission_classes = (IsAuthenticated,)
     adapter_class = FacebookOAuth2Adapter
 
+
 class VKLogin(SocialLoginView):
-    adapter_class= VKOAuth2Adapter
+    adapter_class = VKOAuth2Adapter
+
 
 class FriendAPIView(APIView):
     """
@@ -67,8 +69,8 @@ class FriendAPIView(APIView):
 
         return Response()
 
-class FriendAPIListView(APIView):
 
+class FriendAPIListView(APIView):
     def get(self, request, format=None):
         items = Friend.objects.all()
         paginator = PageNumberPagination()
@@ -79,9 +81,10 @@ class FriendAPIListView(APIView):
     def post(self, request, format=None):
         serializer = FriendSerializer(data=request.data)
         if serializer.is_valid():
-            #serializer.data['date_changed'] = timestamp
-            if User.objects.filter(id=serializer.data['fk_user_friend']).count() != 1:
-                return Response(serializer.errors, status=400)
+            # serializer.data['date_changed'] = timestamp
+            if (User.objects.filter(id=(serializer.data['fk_user_friend'] or
+                                        serializer.data['fk_user_owner'])).count() != 2):
+                return Response(serializer.errors, status=500)
             serializer.save()
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
