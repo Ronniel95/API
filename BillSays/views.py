@@ -73,6 +73,8 @@ class FriendAPIView(APIView):
 
 
 class FriendAPIListView(APIView):
+    permission_classes = (IsAuthenticated,)
+
     def get(self, request, format=None):
         items = Friend.objects.all()
         paginator = PageNumberPagination()
@@ -85,12 +87,12 @@ class FriendAPIListView(APIView):
 
         if serializer.is_valid():
             serializer.validated_data['fk_user_owner'] = request.user
+
+            # check if user trying add self to friends
             if serializer.data['fk_user_friend'] == serializer.data['fk_user_owner']:
                 return Response("You cant add self as friend", status=400)
 
-            if request.user.id != serializer.data['fk_user_owner']:
-                return Response("Wrong user", status=400)
-
+            # check if exist same record
             if (Friend.objects.filter(fk_user_friend=(serializer.data['fk_user_friend']),
                                       fk_user_owner=(serializer.data['fk_user_owner'])).count() != 0):
                 return Response("Record already exist", status=400)
