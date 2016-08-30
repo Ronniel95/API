@@ -1,4 +1,6 @@
 import time
+
+import datetime
 from allauth.socialaccount.providers.vk.views import VKOAuth2Adapter
 from django.contrib.auth.models import User
 from django.http import Http404
@@ -81,10 +83,12 @@ class FriendAPIListView(APIView):
     def post(self, request, format=None):
         serializer = FriendSerializer(data=request.data)
         if serializer.is_valid():
-            # serializer.data['date_changed'] = timestamp
+
             if (Friend.objects.filter(fk_user_friend=(serializer.data['fk_user_friend']),
                                       fk_user_owner=(serializer.data['fk_user_owner'])).count() != 0):
                 return Response("Record already exist", status=400)
+
+            serializer.data['date_changed'] = datetime.datetime.now()
             serializer.save()
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
