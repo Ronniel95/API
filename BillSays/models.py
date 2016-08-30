@@ -29,7 +29,7 @@ class Friend(models.Model):
     status = models.CharField(max_length=1)
 
     # date changed
-    date_changed = models.DateField(auto_now_add=True)
+    date_changed = models.DateField(null=True)
 
 class Owner(models.Model):
     """

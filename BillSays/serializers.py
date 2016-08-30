@@ -22,11 +22,6 @@ class FriendSerializer(serializers.ModelSerializer):
     class Meta:
         model = Friend
 
-    def create(self, validated_data):
-
-        validated_data['date_changed'] = datetime.datetime.now()
-
-        return super(FriendSerializer, self).create(validated_data)
 
 
 
