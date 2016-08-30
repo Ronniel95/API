@@ -82,6 +82,7 @@ class FriendAPIListView(APIView):
 
     def post(self, request, format=None):
         serializer = FriendSerializer(data=request.data)
+        serializer.data['fk_user_owner'] = request.user.id
         if serializer.is_valid():
             if request.user.id != serializer.data['fk_user_owner']:
                 return Response("Wrong user", status=400)
