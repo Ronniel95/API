@@ -9,7 +9,7 @@ from rest_framework_jwt.views import obtain_jwt_token
 
 from API import settings
 from BillSays import views
-from views import schema_view, FacebookLogin
+from views import schema_view, FacebookLogin, VKLogin
 
 router = SimpleRouter()
 from rest_framework import renderers, response, schemas
@@ -38,6 +38,9 @@ urlpatterns = patterns('',
 
     # login via facebook
     url(r'^rest-auth/facebook/$', FacebookLogin.as_view(), name='fb_login'),
+
+# login via facebook
+    url(r'^rest-auth/vk/$', VKLogin.as_view(), name='vk_login'),
 
     # admin site
     url(r'^admin/', include(admin.site.urls)),

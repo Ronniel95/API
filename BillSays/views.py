@@ -1,3 +1,4 @@
+from allauth.socialaccount.providers.vk.views import VKOAuth2Adapter
 from django.http import Http404
 from rest_framework.generics import CreateAPIView
 from rest_framework.pagination import PageNumberPagination
@@ -29,6 +30,8 @@ class FacebookLogin(SocialLoginView):
     #permission_classes = (IsAuthenticated,)
     adapter_class = FacebookOAuth2Adapter
 
+class VKLogin(SocialLoginView):
+    adapter_class= VKOAuth2Adapter
 
 class FriendAPIView(APIView):
     """
