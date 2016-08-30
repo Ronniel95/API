@@ -1,3 +1,4 @@
+import time
 from allauth.socialaccount.providers.vk.views import VKOAuth2Adapter
 from django.http import Http404
 from rest_framework.generics import CreateAPIView
@@ -77,6 +78,7 @@ class FriendAPIListView(APIView):
     def post(self, request, format=None):
         serializer = FriendSerializer(data=request.data)
         if serializer.is_valid():
+            #serializer.data['date_changed'] = timestamp
             serializer.save()
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)

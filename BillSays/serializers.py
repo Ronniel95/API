@@ -23,7 +23,7 @@ class FriendSerializer(serializers.ModelSerializer):
         model = Friend
 
     def is_valid(self, raise_exception=False):
-        if(User.objects.filter(id = self.data['fk_user_owner']).count() !=1):
+        if(User.objects.filter(id == self.data['fk_user_owner']).count() !=1):
             return False
 
 
