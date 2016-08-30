@@ -1,3 +1,5 @@
+from django.http import Http404
+from rest_framework.generics import CreateAPIView
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -12,6 +14,9 @@ from rest_framework import response, schemas
 #from BillSays.models import  Check
 #from BillSays.serializers import CheckSerializer
 
+from BillSays.models import Friend
+from BillSays.serializers import FriendSerializer
+
 
 @api_view()
 @renderer_classes([SwaggerUIRenderer, OpenAPIRenderer])
@@ -21,8 +26,40 @@ def schema_view(request):
 
 
 class FacebookLogin(SocialLoginView):
-    permission_classes = (IsAuthenticated,)
+    #permission_classes = (IsAuthenticated,)
     adapter_class = FacebookOAuth2Adapter
 
+
+class FriendAPIView(APIView):
+    """
+    Retrieve, update or delete a snippet instance.
+
+    """
+    permission_classes = (IsAuthenticated,)
+
+    def get_object(self, pk):
+        try:
+            return Friend.objects.get(pk=pk)
+        except Friend.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        snippet = self.get_object(pk)
+        serializer = FriendSerializer(snippet)
+        return Response(serializer.data)
+
+    def put(self, request, pk, format=None):
+        snippet = self.get_object(pk)
+        serializer = FriendSerializer(snippet, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=400)
+
+    def delete(self, request, pk, format=None):
+        snippet = self.get_object(pk)
+        snippet.delete()
+
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 

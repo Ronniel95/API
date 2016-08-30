@@ -4,7 +4,7 @@ from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
 
 from API.settings import MEDIA_URL
-from BillSays.models import Check
+from BillSays.models import Check, Friend
 
 
 class CheckSerializer(serializers.ModelSerializer):
@@ -14,3 +14,10 @@ class CheckSerializer(serializers.ModelSerializer):
     class Meta:
         model = Check
         fields = ('name', 'date_created', 'image')
+
+class FriendSerializer(serializers.ModelSerializer):
+
+
+    class Meta:
+        model = Friend
+
