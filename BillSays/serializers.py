@@ -22,13 +22,5 @@ class FriendSerializer(serializers.ModelSerializer):
     class Meta:
         model = Friend
 
-    def is_valid(self, raise_exception=False):
-
-        if User.objects.filter(id=self.initial_data['fk_user_friend']).count() != 1:
-            return super(FriendSerializer, self).is_valid(raise_exception)
-
-
-        return super(FriendSerializer, self).is_valid(raise_exception)
-
 
 

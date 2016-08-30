@@ -1,5 +1,6 @@
 import time
 from allauth.socialaccount.providers.vk.views import VKOAuth2Adapter
+from django.contrib.auth.models import User
 from django.http import Http404
 from rest_framework.generics import CreateAPIView
 from rest_framework.pagination import PageNumberPagination
@@ -79,6 +80,8 @@ class FriendAPIListView(APIView):
         serializer = FriendSerializer(data=request.data)
         if serializer.is_valid():
             #serializer.data['date_changed'] = timestamp
+            if User.objects.filter(id=serializer.data['fk_user_friend']).count() != 1:
+                return Response(serializer.errors, status=400)
             serializer.save()
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
