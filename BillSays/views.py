@@ -62,7 +62,7 @@ class FriendAPIView(APIView):
 
         return Response()
 
-class AchievementAPIListView(APIView):
+class FriendAPIListView(APIView):
 
     def get(self, request, format=None):
         items = Friend.objects.all()
