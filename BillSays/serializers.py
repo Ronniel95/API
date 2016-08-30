@@ -24,8 +24,8 @@ class FriendSerializer(serializers.ModelSerializer):
 
     def is_valid(self, raise_exception=False):
 
-        #if(User.objects.filter(id == self._kwards["fk_user_owner"]).count() !=1):
-        #    return False
+        if(User.objects.filter(id == self._kwargs["fk_user_owner"]).count() !=1):
+            return False
 
 
         return super(FriendSerializer, self).is_valid(raise_exception)
