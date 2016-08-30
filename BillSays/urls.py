@@ -9,7 +9,7 @@ from rest_framework_jwt.views import obtain_jwt_token
 
 from API import settings
 from BillSays import views
-from views import schema_view, FacebookLogin, CheckViewSet
+from views import schema_view, FacebookLogin
 
 router = SimpleRouter()
 from rest_framework import renderers, response, schemas
@@ -18,7 +18,7 @@ from rest_framework_swagger.renderers import OpenAPIRenderer, SwaggerUIRenderer
 from allauth.account.views import confirm_email as allauthemailconfirmation
 from django.views.generic import TemplateView, RedirectView
 
-router.register(r'checks', views.CheckViewSet)
+#router.register(r'checks', views.CheckViewSet)
 
 urlpatterns = patterns('',
 

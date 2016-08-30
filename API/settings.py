@@ -151,7 +151,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME':
-            #'Dota',
+            #'Last',
             'dcm6b473plgp9o',
         'USER':
             #'lucas63',
