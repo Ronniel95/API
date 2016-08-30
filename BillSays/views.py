@@ -82,8 +82,8 @@ class FriendAPIListView(APIView):
         serializer = FriendSerializer(data=request.data)
         if serializer.is_valid():
             # serializer.data['date_changed'] = timestamp
-            if (User.objects.filter(id=(serializer.data['fk_user_friend'] or
-                                        serializer.data['fk_user_owner'])).count() != 2):
+            if (Friend.objects.filter(fk_id_friend=(serializer.data['fk_user_friend']),
+                                      fk_id_owner=(serializer.data['fk_user_owner'])).count() != 0):
                 return Response(serializer.errors, status=500)
             serializer.save()
             return Response(serializer.data, status=201)
