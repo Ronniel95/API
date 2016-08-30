@@ -92,7 +92,7 @@ class FriendAPIListView(APIView):
                 return Response("Bad account id", status=400)
 
 
-            serializer.data['date_changed'] = datetime.datetime.now()
+            serializer.validated_data['date_changed'] = datetime.datetime.now()
             serializer.save()
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
