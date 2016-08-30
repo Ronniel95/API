@@ -88,10 +88,6 @@ class FriendAPIListView(APIView):
                                       fk_user_owner=(serializer.data['fk_user_owner'])).count() != 0):
                 return Response("Record already exist", status=400)
 
-            if request.user['id']!=serializer.data['fk_user_owner']:
-                return Response("Bad account id", status=400)
-
-
             serializer.validated_data['date_changed'] = datetime.datetime.now()
             serializer.save()
             return Response(serializer.data, status=201)
