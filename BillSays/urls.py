@@ -39,7 +39,7 @@ urlpatterns = patterns('',
     # login via facebook
     url(r'^rest-auth/facebook/$', FacebookLogin.as_view(), name='fb_login'),
 
-# login via facebook
+    # login via facebook
     url(r'^rest-auth/vk/$', VKLogin.as_view(), name='vk_login'),
 
     # admin site
