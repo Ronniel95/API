@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
 
     'rest_framework',
+
     'rest_framework_swagger', # documentation module
 
     'BillSays',
