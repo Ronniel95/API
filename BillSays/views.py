@@ -82,8 +82,9 @@ class FriendAPIListView(APIView):
 
     def post(self, request, format=None):
         serializer = FriendSerializer(data=request.data)
-        serializer.data['fk_user_owner'] = request.user.id
+
         if serializer.is_valid():
+            serializer.validated_data['fk_user_owner'] = request.user.id
             if serializer.data['fk_user_friend'] == serializer.data['fk_user_owner']:
                 return Response("You cant add self as friend", status=400)
 
