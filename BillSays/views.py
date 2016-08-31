@@ -65,13 +65,14 @@ class FriendAPIView(APIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=400)
+"""
 
     def delete(self, request, id, format=None):
         snippet = self.get_object(id)
         snippet.delete()
 
         return Response()
-
+"""
 
 class FriendAPIListView(APIView):
     permission_classes = (IsAuthenticated,)

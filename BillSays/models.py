@@ -16,6 +16,13 @@ class Friend(models.Model):
     Representation of 'friend' table that contains references to user friends
 
     """
+    REQUEST_STATUS = (
+        ('p', 'Pending'),
+        ('a', 'Accepted'),
+        ('c', 'Canceled'),
+    )
+
+
     # reference to User which is owner of friend
     fk_user_owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='fk_user_owner',null=True)
 
@@ -26,8 +33,7 @@ class Friend(models.Model):
     rating = models.IntegerField(null=True)
 
     # friend relation status
-    status = models.CharField(max_length=1)
-
+    status = models.CharField(max_length=1, choices=REQUEST_STATUS)
     # date changed
     date_changed = models.DateField(null=True)
 
