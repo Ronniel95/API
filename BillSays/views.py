@@ -90,16 +90,15 @@ class FriendAPIListView(APIView):
         serializer = FriendSerializer(data=request.data)
 
         if serializer.is_valid():
-            #serializer.object.validated_data['fk_user_owner'] = request.user
-            serializer.object.fk_user_owner = request.user
+            serializer.validated_data['fk_user_owner'] = request.user
 
             # check if user trying add self to friends
-            if serializer.data['fk_user_friend'] == serializer.data['fk_user_owner']:
+            if serializer.validated_data['fk_user_friend'] == serializer.validated_data['fk_user_owner']:
                 return Response("You cant add self as friend", status=400)
 
             # check if exist same record
-            if (Friend.objects.filter(fk_user_friend=(serializer.data['fk_user_friend']),
-                                      fk_user_owner=(serializer.data['fk_user_owner'])).count() != 0):
+            if (Friend.objects.filter(fk_user_friend=(serializer.validated_data['fk_user_friend']),
+                                      fk_user_owner=(serializer.validated_data['fk_user_owner'])).count() != 0):
                 return Response("Record already exist", status=400)
 
             serializer.save()
