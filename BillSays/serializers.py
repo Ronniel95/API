@@ -14,7 +14,7 @@ class CheckSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Check
-        fields = ('name', 'date_created', 'image')
+        fields = ('image')
 
 class FriendSerializer(serializers.ModelSerializer):
 
