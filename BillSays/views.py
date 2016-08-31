@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.http import Http404
 from rest_framework.generics import CreateAPIView
 from rest_framework.pagination import PageNumberPagination
+from rest_framework.parsers import FileUploadParser
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -106,6 +107,7 @@ class FriendAPIListView(APIView):
 class CheckAPIListView(APIView):
     permission_classes = (IsAuthenticated,)
     filter_backends = (filters.DjangoFilterBackend,)
+    parser_classes = (FileUploadParser,)
 
     def get(self, request, format=None):
 
