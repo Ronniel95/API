@@ -9,7 +9,7 @@ from rest_framework.views import APIView
 from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
 from rest_auth.registration.views import SocialLoginView
 from rest_framework_swagger.renderers import OpenAPIRenderer, SwaggerUIRenderer
-from rest_framework.decorators import api_view, renderer_classes
+from rest_framework.decorators import api_view, renderer_classes, detail_route
 from rest_framework import response, schemas
 from rest_framework import filters
 
@@ -128,3 +128,14 @@ class CheckViewSet(viewsets.ModelViewSet):
     """
     queryset = Check.objects.all()
     serializer_class = CheckSerializer
+
+    @detail_route(methods=['post'])
+    def post_check(self, request, pk=None):
+        user = self.get_object()
+        serializer = CheckSerializer(data=request.data,file=request.files)
+        if serializer.is_valid():
+            user.set_password(serializer.data['password'])
+            user.save()
+            return Response({'status': 'password set'})
+        else:
+            return Response(serializer.errors)
