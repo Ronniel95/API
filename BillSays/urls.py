@@ -18,7 +18,7 @@ from rest_framework_swagger.renderers import OpenAPIRenderer, SwaggerUIRenderer
 from allauth.account.views import confirm_email as allauthemailconfirmation
 from django.views.generic import TemplateView, RedirectView
 
-#router.register(r'checks', views.CheckViewSet)
+router.register(r'checks', views.CheckViewSet)
 
 urlpatterns = patterns('',
 

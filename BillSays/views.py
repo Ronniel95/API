@@ -127,3 +127,10 @@ class CheckAPIListView(APIView):
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
 
+from rest_framework import viewsets
+class CheckViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = Check.objects.all()
+    serializer_class = CheckSerializer

@@ -8,13 +8,7 @@ from API.settings import MEDIA_URL
 from BillSays.models import Check, Friend
 
 
-class CheckSerializer(serializers.ModelSerializer):
 
-    image = serializers.ImageField(max_length=None,use_url=False)
-
-    class Meta:
-        model = Check
-        fields = ('image','fk_user','total_cost')
 
 class FriendSerializer(serializers.ModelSerializer):
 
@@ -23,7 +17,14 @@ class FriendSerializer(serializers.ModelSerializer):
 
 
 
+class CheckSerializer(serializers.ModelSerializer):
 
+    image_url = serializers.ImageField(max_length=None,use_url=True)
+
+
+    class Meta:
+        model = Check
+        fields = ('name', 'date_created', 'image_url')
 
 
 
