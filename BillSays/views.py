@@ -47,27 +47,27 @@ class FriendAPIView(APIView):
     """
     permission_classes = (IsAuthenticated,)
 
-    def get_object(self, pk):
+    def get_object(self, id):
         try:
-            return Friend.objects.get(pk=pk)
+            return Friend.objects.get(id=id)
         except Friend.DoesNotExist:
             raise Http404
 
-    def get(self, request, pk, format=None):
-        snippet = self.get_object(pk)
+    def get(self, request, id, format=None):
+        snippet = self.get_object(id)
         serializer = FriendSerializer(snippet)
         return Response(serializer.data)
 
-    def put(self, request, pk, format=None):
-        snippet = self.get_object(pk)
+    def put(self, request, id, format=None):
+        snippet = self.get_object(id)
         serializer = FriendSerializer(snippet, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=400)
 
-    def delete(self, request, pk, format=None):
-        snippet = self.get_object(pk)
+    def delete(self, request, id, format=None):
+        snippet = self.get_object(id)
         snippet.delete()
 
         return Response()
