@@ -46,7 +46,6 @@ class FriendAPIView(APIView):
 
     """
     permission_classes = (IsAuthenticated,)
-    http_method_names = ['GET','PUT','POST','DELETE']
 
     def get_object(self, pk):
         try:
@@ -78,6 +77,7 @@ class FriendAPIListView(APIView):
     permission_classes = (IsAuthenticated,)
     filter_backends = (filters.DjangoFilterBackend,)
     filter_fields = ('fk_user_friend', 'fk_user_owner',)
+
     def get(self, request, format=None):
 
         from itertools import chain
