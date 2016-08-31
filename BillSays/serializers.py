@@ -24,7 +24,7 @@ class CheckSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Check
-        fields = ('name', 'date_created', 'image_url')
+        fields = ('fk_user', 'date_created', 'image_url')
 
 
 
