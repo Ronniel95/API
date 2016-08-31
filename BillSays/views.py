@@ -79,7 +79,8 @@ class FriendAPIListView(APIView):
 
 
 
-        items = Friend.objects.filter(fk_user_friend=request.user).filter(fk_user_owner=request.user)
+        items = Friend.objects.filter(fk_user_friend=request.user).filter(fk_user_owner
+                                                                          =request.user)
         paginator = PageNumberPagination()
         result_page = paginator.paginate_queryset(items, request)
         serializer = FriendSerializer(result_page, many=True)
@@ -89,7 +90,8 @@ class FriendAPIListView(APIView):
         serializer = FriendSerializer(data=request.data)
 
         if serializer.is_valid():
-            serializer.validated_data['fk_user_owner'] = request.user
+            #serializer.object.validated_data['fk_user_owner'] = request.user
+            serializer.object.fk_user_owner = request.user
 
             # check if user trying add self to friends
             if serializer.data['fk_user_friend'] == serializer.data['fk_user_owner']:
