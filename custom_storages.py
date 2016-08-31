@@ -1,5 +1,5 @@
 # custom_storages.py
-import whitenoise
+import whitenoise.django
 from django.conf import settings
 from storages.backends.s3boto import S3BotoStorage
 
