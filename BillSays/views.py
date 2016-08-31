@@ -133,6 +133,7 @@ class CheckViewSet(viewsets.ModelViewSet):
         serializer = CheckSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
+
             return Response(serializer.data['id'])
         else:
             return Response(serializer.errors, status=400)
