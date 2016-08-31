@@ -46,6 +46,7 @@ class FriendAPIView(APIView):
 
     """
     permission_classes = (IsAuthenticated,)
+    http_method_names = ['GET','PUT','POST','DELETE']
 
     def get_object(self, pk):
         try:
