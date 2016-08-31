@@ -21,7 +21,7 @@ class FriendSerializer(serializers.ModelSerializer):
     status = serializers.SerializerMethodField()
 
     def get_status(self, obj):
-        return obj.get_gender_display()
+        return obj.get_status_display()
 
     class Meta:
         model = Friend
