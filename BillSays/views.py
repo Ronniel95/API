@@ -20,7 +20,7 @@ from rest_framework import filters
 # from BillSays.models import  Check
 # from BillSays.serializers import CheckSerializer
 
-from BillSays.models import Friend
+from BillSays.models import Friend, Check
 from BillSays.serializers import FriendSerializer
 
 
@@ -65,14 +65,7 @@ class FriendAPIView(APIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=400)
-"""
 
-    def delete(self, request, id, format=None):
-        snippet = self.get_object(id)
-        snippet.delete()
-
-        return Response()
-"""
 
 class FriendAPIListView(APIView):
     permission_classes = (IsAuthenticated,)
@@ -109,3 +102,26 @@ class FriendAPIListView(APIView):
 
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
+
+class CheckAPIListView(APIView):
+    permission_classes = (IsAuthenticated,)
+    filter_backends = (filters.DjangoFilterBackend,)
+
+    def get(self, request, format=None):
+
+        from itertools import chain
+        items = Check.objects.all()
+
+        paginator = PageNumberPagination()
+        result_page = paginator.paginate_queryset(items, request)
+        serializer = FriendSerializer(result_page, many=True)
+        return paginator.get_paginated_response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = FriendSerializer(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)
+
