@@ -115,7 +115,7 @@ class Check(models.Model):
     image_url = models.ImageField(null=True, max_length=255)
 
     # total receipt cost
-    total_cost = models.DecimalField(max_digits=10,decimal_places=4)
+    total_cost = models.DecimalField(max_digits=10,decimal_places=4,null=True)
 
 
 # level 5
