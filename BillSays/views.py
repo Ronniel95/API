@@ -42,7 +42,7 @@ class VKLogin(SocialLoginView):
 
 class FriendAPIView(APIView):
     """
-    Retrieve, update or delete a snippet instance.
+    Retrieve, update friend instance.
 
     """
     permission_classes = (IsAuthenticated,)

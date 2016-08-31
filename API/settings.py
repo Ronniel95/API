@@ -111,7 +111,6 @@ LOGIN_REDIRECT_URL = '/'
 SOCIALACCOUNT_QUERY_EMAIL = True
 SOCIALACCOUNT_PROVIDERS = {
     'facebook': {
-        #'SCOPE': ['email', 'publish_stream'],
         'SCOPE': ['email', 'publish_actions'],
         'METHOD': 'js_sdk'  # instead of 'oauth2'
     }
@@ -187,7 +186,7 @@ SWAGGER_SETTINGS = {
         'delete'
     ],
     "api_key": '(l2%=61ue!xphtji$-v-%xmua2w*2s4zbtl$#o!327b@n24q+-', # An API key
-    "is_authenticated": False,  # Set to True to enforce user authentication,
+    "is_authenticated": True,  # Set to True to enforce user authentication,
     "is_superuser": False,  # Set to True to enforce admin only access
 }
 
