@@ -79,9 +79,10 @@ class FriendAPIListView(APIView):
     filter_fields = ('fk_user_friend', 'fk_user_owner',)
     def get(self, request, format=None):
 
-        items = Friend.objects.all().filter(fk_user_friend=request.user)
+        from itertools import chain
+        items = list(chain(Friend.objects.all().filter(fk_user_friend=request.user),
+                           Friend.objects.all().filter(fk_user_owner=request.user)))
 
-        items += Friend.objects.all().filter(fk_user_owner=request.user)
         paginator = PageNumberPagination()
         result_page = paginator.paginate_queryset(items, request)
         serializer = FriendSerializer(result_page, many=True)
