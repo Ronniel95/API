@@ -1,10 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-from django.views.generic import RedirectView
-from rest_auth.registration.views import VerifyEmailView
 from rest_framework.routers import SimpleRouter
-import rest_framework_swagger
-from rest_framework_jwt.views import obtain_jwt_token
 
 
 from API import settings
@@ -12,11 +8,8 @@ from BillSays import views
 from views import schema_view, FacebookLogin, VKLogin
 
 router = SimpleRouter()
-from rest_framework import renderers, response, schemas
-from rest_framework.decorators import api_view, renderer_classes
-from rest_framework_swagger.renderers import OpenAPIRenderer, SwaggerUIRenderer
-from allauth.account.views import confirm_email as allauthemailconfirmation
-from django.views.generic import TemplateView, RedirectView
+
+from django.views.generic import TemplateView
 
 router.register(r'checks', views.CheckViewSet)
 

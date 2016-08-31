@@ -1,10 +1,6 @@
-import time
-
-import datetime
 from allauth.socialaccount.providers.vk.views import VKOAuth2Adapter
-from django.contrib.auth.models import User
 from django.http import Http404
-from rest_framework.generics import CreateAPIView
+
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.parsers import FileUploadParser
 from rest_framework.permissions import IsAuthenticated
@@ -12,14 +8,10 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
 from rest_auth.registration.views import SocialLoginView
-from rest_framework.viewsets import ModelViewSet
 from rest_framework_swagger.renderers import OpenAPIRenderer, SwaggerUIRenderer
 from rest_framework.decorators import api_view, renderer_classes
 from rest_framework import response, schemas
 from rest_framework import filters
-
-# from BillSays.models import  Check
-# from BillSays.serializers import CheckSerializer
 
 from BillSays.models import Friend, Check
 from BillSays.serializers import FriendSerializer, CheckSerializer
@@ -104,13 +96,13 @@ class FriendAPIListView(APIView):
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
 
+
 class CheckAPIListView(APIView):
     permission_classes = (IsAuthenticated,)
     filter_backends = (filters.DjangoFilterBackend,)
     parser_classes = (FileUploadParser,)
 
     def get(self, request, format=None):
-
         from itertools import chain
         items = Check.objects.all()
 
@@ -127,8 +119,11 @@ class CheckAPIListView(APIView):
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
 
-from rest_framework import viewsets
-class CheckViewSet(viewsets.ModelViewSet):
+
+import rest_framework.viewsets
+
+
+class CheckViewSet(rest_framework.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """

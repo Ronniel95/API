@@ -1,10 +1,5 @@
-from django.contrib.auth.models import User
-from django.utils.deconstruct import deconstructible
-from dropbox import Dropbox
 from rest_framework import serializers
-from rest_framework.serializers import ModelSerializer, datetime
 
-from API.settings import MEDIA_URL
 from BillSays.models import Check, Friend
 
 
