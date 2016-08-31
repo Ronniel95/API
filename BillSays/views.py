@@ -15,6 +15,7 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework_swagger.renderers import OpenAPIRenderer, SwaggerUIRenderer
 from rest_framework.decorators import api_view, renderer_classes
 from rest_framework import response, schemas
+from rest_framework import filters
 
 # from BillSays.models import  Check
 # from BillSays.serializers import CheckSerializer
@@ -74,6 +75,7 @@ class FriendAPIView(APIView):
 
 class FriendAPIListView(APIView):
     permission_classes = (IsAuthenticated,)
+    filter_backends = (filters.DjangoFilterBackend,)
 
     def get(self, request, format=None):
 
