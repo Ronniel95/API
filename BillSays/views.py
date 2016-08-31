@@ -21,7 +21,7 @@ from rest_framework import filters
 # from BillSays.serializers import CheckSerializer
 
 from BillSays.models import Friend, Check
-from BillSays.serializers import FriendSerializer
+from BillSays.serializers import FriendSerializer, CheckSerializer
 
 
 @api_view()
@@ -114,11 +114,11 @@ class CheckAPIListView(APIView):
 
         paginator = PageNumberPagination()
         result_page = paginator.paginate_queryset(items, request)
-        serializer = FriendSerializer(result_page, many=True)
+        serializer = CheckSerializer(result_page, many=True)
         return paginator.get_paginated_response(serializer.data)
 
     def post(self, request, format=None):
-        serializer = FriendSerializer(data=request.data)
+        serializer = CheckSerializer(data=request.data)
 
         if serializer.is_valid():
             serializer.save()

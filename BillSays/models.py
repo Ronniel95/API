@@ -16,9 +16,6 @@ class Friend(models.Model):
     Representation of 'friend' table that contains references to user friends
 
     """
-
-
-
     # reference to User which is owner of friend
     fk_user_owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='fk_user_owner',null=True)
 
