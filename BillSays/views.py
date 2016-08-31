@@ -116,11 +116,11 @@ class CheckAPIListView(APIView):
 
         paginator = PageNumberPagination()
         result_page = paginator.paginate_queryset(items, request)
-        serializer = CheckSerializer(result_page, many=True)
+        serializer = CheckSerializer(data=request.DATA, files=request.FILES)
         return paginator.get_paginated_response(serializer.data)
 
     def post(self, request, format=None):
-        serializer = CheckSerializer(data=request.data)
+        serializer = CheckSerializer(data=request.DATA, files=request.FILES)
 
         if serializer.is_valid():
             serializer.save()
