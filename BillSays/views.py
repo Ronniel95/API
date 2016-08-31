@@ -120,10 +120,10 @@ class CheckAPIListView(APIView):
         return Response(serializer.errors, status=400)
 
 
-import rest_framework.viewsets
+import rest_framework
 
 
-class CheckViewSet(rest_framework.ModelViewSet):
+class CheckViewSet(rest_framework.viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
