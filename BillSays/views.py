@@ -129,13 +129,12 @@ class CheckViewSet(viewsets.ModelViewSet):
     queryset = Check.objects.all()
     serializer_class = CheckSerializer
 
-    @detail_route(methods=['post'])
-    def post_check(self, request, pk=None):
-        user = self.get_object()
-        serializer = CheckSerializer(data=request.data,file=request.files)
+    def create(self, request, *args, **kwargs):
+        serializer = CheckSerializer(data=request.data)
         if serializer.is_valid():
-            user.set_password(serializer.data['password'])
-            user.save()
-            return Response('okey',status=202)
+            serializer.save()
+            return Response({'status': 'issue created'})
         else:
-            return Response(serializer.errors)
+            return Response(serializer.errors, status=400)
+
+
