@@ -17,7 +17,9 @@ class CheckSerializer(serializers.ModelSerializer):
         fields = ('name', 'date_created', 'image')
 
 class FriendSerializer(serializers.ModelSerializer):
-    status = serializers.CharField(source='get_status_display')
+
+    status = serializers.SerializerMethodField()
+
 
 
     class Meta:
