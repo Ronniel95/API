@@ -76,7 +76,7 @@ class FriendAPIView(APIView):
 class FriendAPIListView(APIView):
     permission_classes = (IsAuthenticated,)
     filter_backends = (filters.DjangoFilterBackend,)
-
+    filter_fields = ('fk_user_friend', 'fk_user_owner',)
     def get(self, request, format=None):
 
         items = Friend.objects.filter(fk_user_friend=request.user).filter(fk_user_owner
