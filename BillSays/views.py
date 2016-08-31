@@ -136,6 +136,6 @@ class CheckViewSet(viewsets.ModelViewSet):
         if serializer.is_valid():
             user.set_password(serializer.data['password'])
             user.save()
-            return Response({'status': 'password set'})
+            return Response('okey',status=202)
         else:
             return Response(serializer.errors)
