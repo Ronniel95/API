@@ -24,8 +24,8 @@ urlpatterns = patterns('',
 
     url(r'^', include(router.urls)),
 
-    url(r'^friend/', views.FriendAPIView.as_view()),
-    url(r'^friend/(?P<pk>[0-9]+)/$', views.FriendAPIListView.as_view()),
+    url(r'^friend/', views.FriendAPIListView.as_view()),
+    url(r'^friend/(?P<pk>[0-9]+)/$',views.FriendAPIView.as_view()),
 
     #swagger documentation for API
     url('^docs/', schema_view),
