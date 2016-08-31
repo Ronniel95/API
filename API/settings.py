@@ -90,6 +90,10 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.AllowAny',
     ),
 
+    'DEFAULT_FILTER_BACKENDS': (
+        'rest_framework.filters.DjangoFilterBackend',
+    ),
+
 }
 
 AUTHENTICATION_BACKENDS = (

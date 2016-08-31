@@ -77,8 +77,6 @@ class FriendAPIListView(APIView):
 
     def get(self, request, format=None):
 
-
-
         items = Friend.objects.filter(fk_user_friend=request.user).filter(fk_user_owner
                                                                           =request.user)
         paginator = PageNumberPagination()
