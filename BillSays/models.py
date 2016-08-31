@@ -35,7 +35,7 @@ class Friend(models.Model):
     # friend relation status
     status = models.CharField(max_length=1, choices=REQUEST_STATUS)
     # date changed
-    date_changed = models.DateField(null=True)
+    date_changed = models.DateField(null=True,auto_now=True)
 
 class Owner(models.Model):
     """
