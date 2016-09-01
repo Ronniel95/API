@@ -119,14 +119,14 @@ class CheckViewSet(viewsets.ModelViewSet):
     def generate_check(self,check):
         check.total_cost = random.randrange(1000)
 
-        restaurant_name = 'restaurant_'+random.randrange(50)
+        restaurant_name = 'restaurant_'+str(random.randrange(50))
         if(Location.objects.filter(name=restaurant_name).count()==0):
             location = Location(name=restaurant_name)
             location.save()
             temp = location.id
 
 
-        waitress_name = 'waitress_'+random.randrange(50)
+        waitress_name = 'waitress_'+str(random.randrange(50))
         check.save()
 
 
