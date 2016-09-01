@@ -78,8 +78,8 @@ class Achievement(models.Model):
     date_achieved = models.DateField(auto_now_add=True)
 
 class Location(models.Model):
-    fk_owner = models.ForeignKey(Owner, related_name='fk_owner')
-    id_check = models.CharField(max_length=255)
+    fk_owner = models.ForeignKey(Owner, related_name='fk_owner',null=True)
+    #id_check = models.CharField(max_length=255)
     name = models.CharField(max_length=255)
 
 # level 3
