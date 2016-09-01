@@ -15,7 +15,7 @@ from rest_framework.decorators import api_view, renderer_classes, detail_route
 from rest_framework import response, schemas
 from rest_framework import filters
 
-from BillSays.models import Friend, Check
+from BillSays.models import Friend, Check, Mention
 from BillSays.serializers import FriendSerializer, CheckSerializer, MentionSerializer
 from rest_framework import viewsets
 
@@ -150,8 +150,8 @@ class MentionViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
-    queryset = Check.objects.all()
-    serializer_class = CheckSerializer
+    queryset = Mention.objects.all()
+    serializer_class = MentionSerializer
 
     def create(self, request, *args, **kwargs):
         serializer = MentionSerializer(data=request.data)
