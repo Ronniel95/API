@@ -19,6 +19,7 @@ from BillSays.models import Friend, Check, Mention, Location, Waitress
 from BillSays.serializers import FriendSerializer, CheckSerializer, MentionSerializer
 from rest_framework import viewsets
 
+
 @api_view()
 @renderer_classes([SwaggerUIRenderer, OpenAPIRenderer])
 def schema_view(request):
@@ -99,7 +100,6 @@ class FriendAPIListView(APIView):
         return Response(serializer.errors, status=400)
 
 
-
 class CheckViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
@@ -116,35 +116,33 @@ class CheckViewSet(viewsets.ModelViewSet):
         else:
             return Response(serializer.errors, status=400)
 
-    def generate_check(self,check):
+    def generate_check(self, check):
         check.total_cost = random.randrange(1000)
 
         id_location = 0
         id_waitress = 0
 
-        restaurant_name = 'restaurant_'+str(random.randrange(5))
+        restaurant_name = 'restaurant_' + str(random.randrange(5))
         waitress_name = 'waitress_' + str(random.randrange(5))
 
-        if(Location.objects.filter(name=restaurant_name).count()==0):
+        if Location.objects.filter(name=restaurant_name).count() == 0:
             location = Location(name=restaurant_name)
             location.save()
             id_location = location.id
         else:
             id_location = Location.objects.get(name=restaurant_name).id
 
-        if(Waitress.objects.filter(name=waitress_name,fk_location=id_location).count()==0):
-            waitress = Waitress(name=waitress_name,fk_location=id_location)
+        if Waitress.objects.filter(name=waitress_name, fk_location=id_location).count() == 0:
+            waitress = Waitress(name=waitress_name, fk_location=id_location)
             waitress.save()
             id_waitress = waitress.id
         else:
-            id_location = Location.objects.get(name=waitress_name,fk_location=id_location).id
-
+            id_location = Waitress.objects.get(name=waitress_name, fk_location=id_location).id
 
         check.fk_waitress = id_waitress
         import time
         check.date_created = time.now()
         check.save()
-
 
 
 class MentionViewSet(viewsets.ModelViewSet):
@@ -158,14 +156,10 @@ class MentionViewSet(viewsets.ModelViewSet):
         serializer = MentionSerializer(data=request.data)
         if serializer.is_valid():
 
-            if(Check.objects.filter(id=serializer.validated_data['id']).count()==0):
-                return Response("Given check doesnt exist",status=400)
+            if (Check.objects.filter(id=serializer.validated_data['id']).count() == 0):
+                return Response("Given check doesnt exist", status=400)
             test = serializer.save()
 
             return Response(test.id)
         else:
             return Response(serializer.errors, status=400)
-
-
-
-
