@@ -127,7 +127,7 @@ class CheckElement(models.Model):
 class Mention(models.Model):
     id = models.OneToOneField(Check,on_delete=models.CASCADE, primary_key=True)
 
-    comment = models.CharField(max_length=500)
+    comment = models.CharField(max_length=500,null=True)
 
     waitress_rate = models.IntegerField()
 

@@ -99,28 +99,6 @@ class FriendAPIListView(APIView):
         return Response(serializer.errors, status=400)
 
 
-class CheckAPIListView(APIView):
-    permission_classes = (IsAuthenticated,)
-    filter_backends = (filters.DjangoFilterBackend,)
-    parser_classes = (FileUploadParser,)
-
-    def get(self, request, format=None):
-        from itertools import chain
-        items = Check.objects.all()
-
-        paginator = PageNumberPagination()
-        result_page = paginator.paginate_queryset(items, request)
-        serializer = CheckSerializer(data=request.DATA, files=request.FILES)
-        return paginator.get_paginated_response(serializer.data)
-
-    def post(self, request, format=None):
-        serializer = CheckSerializer(data=request.DATA, files=request.FILES)
-
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=201)
-        return Response(serializer.errors, status=400)
-
 
 
 
