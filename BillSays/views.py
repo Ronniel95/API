@@ -137,7 +137,7 @@ class CheckViewSet(viewsets.ModelViewSet):
             waitress.save()
             id_waitress = waitress.id
         else:
-            id_location = Waitress.objects.get(name=waitress_name, fk_location=id_location).id
+            id_waitress = Waitress.objects.get(name=waitress_name, fk_location=id_location).id
 
         check.fk_waitress = id_waitress
         import time
