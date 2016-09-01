@@ -20,6 +20,8 @@ urlpatterns = patterns('',
     url(r'^friend/', views.FriendAPIListView.as_view()),
     url(r'^friend_instance/(?P<id>[0-9]+)/$',views.FriendAPIView.as_view()),
 
+    url(r'^mention/', views.FriendAPIListView.as_view()),
+
     url(r'^check/', views.CheckAPIListView.as_view()),
 
     #swagger documentation for API

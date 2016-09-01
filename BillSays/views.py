@@ -1,3 +1,5 @@
+import random
+
 from allauth.socialaccount.providers.vk.views import VKOAuth2Adapter
 from django.http import Http404
 
@@ -14,7 +16,7 @@ from rest_framework import response, schemas
 from rest_framework import filters
 
 from BillSays.models import Friend, Check
-from BillSays.serializers import FriendSerializer, CheckSerializer
+from BillSays.serializers import FriendSerializer, CheckSerializer, MentionSerializer
 from rest_framework import viewsets
 
 @api_view()
@@ -138,4 +140,25 @@ class CheckViewSet(viewsets.ModelViewSet):
         else:
             return Response(serializer.errors, status=400)
 
+    def generate_waitress(self,check):
+        test = random.randrange(50)
+
+        restaurant = "res_"
+
+
+class MentionViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = Check.objects.all()
+    serializer_class = CheckSerializer
+
+    def create(self, request, *args, **kwargs):
+        serializer = MentionSerializer(data=request.data)
+        if serializer.is_valid():
+            test = serializer.save()
+
+            return Response(test.id)
+        else:
+            return Response(serializer.errors, status=400)
 
