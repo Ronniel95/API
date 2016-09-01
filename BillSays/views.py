@@ -124,41 +124,4 @@ class CheckAPIListView(APIView):
 
 
 
-class CheckViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
-    queryset = Check.objects.all()
-    serializer_class = CheckSerializer
-
-    def create(self, request, *args, **kwargs):
-        serializer = CheckSerializer(data=request.data)
-        if serializer.is_valid():
-            test = serializer.save()
-
-            return Response(test.id)
-        else:
-            return Response(serializer.errors, status=400)
-
-    def generate_waitress(self,check):
-        test = random.randrange(50)
-
-        restaurant = "res_"
-
-
-class MentionViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
-    queryset = Check.objects.all()
-    serializer_class = CheckSerializer
-
-    def create(self, request, *args, **kwargs):
-        serializer = MentionSerializer(data=request.data)
-        if serializer.is_valid():
-            test = serializer.save()
-
-            return Response(test.id)
-        else:
-            return Response(serializer.errors, status=400)
 
