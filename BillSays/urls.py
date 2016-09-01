@@ -24,6 +24,7 @@ urlpatterns = patterns('',
 
     url(r'^check/', views.CheckAPIListView.as_view()),
 
+
     #swagger documentation for API
     url('^docs/', schema_view),
 
