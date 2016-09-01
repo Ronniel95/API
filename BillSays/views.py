@@ -140,7 +140,7 @@ class CheckViewSet(viewsets.ModelViewSet):
             id_location = Location.objects.get(name=waitress_name,fk_location=id_location).id
 
 
-        check.fk_waitress_id = id_waitress
+        check.fk_waitress = id_waitress
         import time
         check.date_created = time.now()
         check.save()
