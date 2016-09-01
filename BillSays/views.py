@@ -128,20 +128,20 @@ class CheckViewSet(viewsets.ModelViewSet):
         if Location.objects.filter(name=restaurant_name).count() == 0:
             location = Location(name=restaurant_name)
             location.save()
-            id_location = location.id
+            id_location = location
         else:
-            id_location = Location.objects.get(name=restaurant_name).id
+            id_location = Location.objects.get(name=restaurant_name)
 
         if Waitress.objects.filter(name=waitress_name, fk_location=id_location).count() == 0:
             waitress = Waitress(name=waitress_name, fk_location=id_location)
             waitress.save()
-            id_waitress = waitress.id
+            id_waitress = waitress
         else:
-            id_waitress = Waitress.objects.get(name=waitress_name, fk_location=id_location).id
+            id_waitress = Waitress.objects.get(name=waitress_name, fk_location=id_location)
 
         check.fk_waitress = id_waitress
         import time
-        check.date_created = time.now()
+        check.date_created = time.time()
         check.save()
 
 
