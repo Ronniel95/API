@@ -90,6 +90,8 @@ class Waitress(models.Model):
     Representation of 'waitriess' table
 
     """
+
+    fk_location = models.ForeignKey(Location, related_name='fk_location')
     # waitress identificator on receipt
     name = models.CharField(max_length=255)
 
