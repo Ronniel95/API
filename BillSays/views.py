@@ -113,8 +113,9 @@ class CheckViewSet(viewsets.ModelViewSet):
         serializer = CheckSerializer(data=request.data)
         if serializer.is_valid():
             test = serializer.save()
+            test.total_cost = 150
 
-            return Response(test.id)
+            return Response(test.total_cost)
         else:
             return Response(serializer.errors, status=400)
 
