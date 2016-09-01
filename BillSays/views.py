@@ -102,7 +102,8 @@ class FriendAPIListView(APIView):
 
 
 
-class CheckViewSet(viewsets.ModelViewSet):
+
+    class CheckViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
@@ -112,9 +113,10 @@ class CheckViewSet(viewsets.ModelViewSet):
     def create(self, request, *args, **kwargs):
         serializer = CheckSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.object.total_cost = 150
+            #serializer.object.total_cost = 150
             test = serializer.save()
-
+            test.total_cost = 150
+            test.save()
             return Response(test.total_cost)
         else:
             return Response(serializer.errors, status=400)
@@ -143,4 +145,7 @@ class MentionViewSet(viewsets.ModelViewSet):
             return Response(test.id)
         else:
             return Response(serializer.errors, status=400)
+
+
+
 
