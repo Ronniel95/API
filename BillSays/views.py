@@ -135,6 +135,9 @@ class MentionViewSet(viewsets.ModelViewSet):
     def create(self, request, *args, **kwargs):
         serializer = MentionSerializer(data=request.data)
         if serializer.is_valid():
+
+            if(Check.objects.filter(id=serializer.validated_data['id']).count()==0):
+                return Response("Given check doesnt exist",status=400)
             test = serializer.save()
 
             return Response(test.id)
