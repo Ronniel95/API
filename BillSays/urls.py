@@ -24,7 +24,7 @@ urlpatterns = patterns('',
 
     #url(r'^mention/', views.MentionAPIListView.as_view()),
 
-    url(r'^check/', views.CheckAPIListView.as_view()),
+    #url(r'^check/', views.CheckAPIListView.as_view()),
 
 
     #swagger documentation for API
