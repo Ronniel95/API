@@ -117,8 +117,7 @@ class CheckViewSet(viewsets.ModelViewSet):
             return Response(serializer.errors, status=400)
 
     def generate_check(self,check):
-        test = random.randrange(50)
-        test.total_cost = random.randrange(1000)
+        check.total_cost = random.randrange(1000)
 
         restaurant_name = 'restaurant_'+random.randrange(50)
         if(Location.objects.filter(name=restaurant_name).count()==0):
@@ -128,7 +127,7 @@ class CheckViewSet(viewsets.ModelViewSet):
 
 
         waitress_name = 'waitress_'+random.randrange(50)
-        test.save()
+        check.save()
 
 
 
