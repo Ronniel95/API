@@ -32,4 +32,4 @@ class RecognizedCheckSerializer(serializers.ModelSerializer):
     class Meta:
 
         model = Check
-        fields = ('fk_user', 'date_created', 'image_url', 'id_waitress', 'total_cost', 'dishes')
+        fields = ('fk_user', 'date_created', 'image_url', 'fk_waitress', 'total_cost', 'dishes')
