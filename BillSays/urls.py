@@ -15,6 +15,8 @@ router.register(r'checks', views.CheckViewSet)
 router.register(r'mention', views.MentionViewSet)
 router.register(r'usercheckelement',views.BookViewSet)
 
+router.register(r'search',views.UserListView)
+
 urlpatterns = patterns('',
 
     url(r'^', include(router.urls)),

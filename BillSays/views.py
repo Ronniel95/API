@@ -2,7 +2,9 @@ import random
 from wsgiref import headers
 
 from allauth.socialaccount.providers.vk.views import VKOAuth2Adapter
+from django.contrib.auth.models import User
 from django.http import Http404
+from rest_framework.generics import ListAPIView
 
 from rest_framework.pagination import PageNumberPagination
 
@@ -16,6 +18,7 @@ from rest_framework_swagger.renderers import OpenAPIRenderer, SwaggerUIRenderer
 from rest_framework.decorators import api_view, renderer_classes
 from rest_framework import response, schemas
 from rest_framework import filters
+from rest_social_auth.serializers import UserSerializer
 
 from BillSays.models import Friend, Check, Mention, Location, Waitress, CheckElement, UserCheckElement
 from BillSays.serializers import FriendSerializer, CheckSerializer, MentionSerializer, RecognizedCheckSerializer, \
@@ -212,3 +215,10 @@ class BookViewSet(viewsets.mixins.CreateModelMixin, viewsets.mixins.ListModelMix
             self.perform_create(serializer)
             headers = self.get_success_headers(serializer.data)
             return Response(serializer.data, status=201, headers=headers)
+
+
+class UserListView(ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('username', 'email')
