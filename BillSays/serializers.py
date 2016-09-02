@@ -13,7 +13,7 @@ class CheckSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Check
-        fields = ('fk_user', 'date_created', 'image_url')
+        fields = ('fk_user', 'date_created', 'image_url','fk_waitress')
 
 
 class CheckElementSerializer(serializers.ModelSerializer):
