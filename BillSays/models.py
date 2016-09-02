@@ -149,4 +149,4 @@ class UserCheckElement(models.Model):
 
     fk_check_element = models.ForeignKey(CheckElement,related_name='fk_user')
 
-    cost = models.DecimalField(decimal_places=4,max_digits=5)
+    cost = models.DecimalField(decimal_places=4,max_digits=7)
