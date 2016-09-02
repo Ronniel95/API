@@ -1,6 +1,9 @@
 import random
+from wsgiref import headers
 
+from IPython.utils import generics
 from allauth.socialaccount.providers.vk.views import VKOAuth2Adapter
+from django.contrib.auth import mixins
 from django.http import Http404
 
 from rest_framework.pagination import PageNumberPagination
@@ -10,13 +13,15 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
 from rest_auth.registration.views import SocialLoginView
+from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from rest_framework_swagger.renderers import OpenAPIRenderer, SwaggerUIRenderer
 from rest_framework.decorators import api_view, renderer_classes, detail_route
 from rest_framework import response, schemas
 from rest_framework import filters
 
-from BillSays.models import Friend, Check, Mention, Location, Waitress, CheckElement
-from BillSays.serializers import FriendSerializer, CheckSerializer, MentionSerializer, RecognizedCheckSerializer
+from BillSays.models import Friend, Check, Mention, Location, Waitress, CheckElement, UserCheckElement
+from BillSays.serializers import FriendSerializer, CheckSerializer, MentionSerializer, RecognizedCheckSerializer, \
+    UserCheckElementSerializer
 from rest_framework import viewsets
 
 
@@ -171,3 +176,23 @@ class MentionViewSet(viewsets.ModelViewSet):
             return Response(test.id)
         else:
             return Response(serializer.errors, status=400)
+
+class UserCheckElementsList(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
+    queryset = UserCheckElement.objects.all()
+    serializer_class = UserCheckElementSerializer
+    permission_classes = (IsAuthenticated, )
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        urls = request.data["urls"]
+
+        is_many = isinstance(urls, list)
+        if not is_many:
+            return super(UserCheckElementsList, self).create(request, *args, **kwargs)
+        else:
+            serializer = self.get_serializer(data=urls, many=True)
+            serializer.is_valid(raise_exception=True)
+            self.create_list(serializer)
+            return Response(serializer.data, status=201, headers=headers)

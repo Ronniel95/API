@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from BillSays.models import Check, Friend, CheckElement, Mention
+from BillSays.models import Check, Friend, CheckElement, Mention, UserCheckElement
 
 
 class FriendSerializer(serializers.ModelSerializer):
@@ -33,3 +33,8 @@ class RecognizedCheckSerializer(serializers.ModelSerializer):
 
         model = Check
         fields = ('fk_user', 'date_created', 'image_url', 'fk_waitress', 'total_cost', 'fk_check')
+
+
+class UserCheckElementSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserCheckElement

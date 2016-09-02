@@ -13,7 +13,7 @@ from django.views.generic import TemplateView
 
 router.register(r'checks', views.CheckViewSet)
 router.register(r'mention', views.MentionViewSet)
-
+router.register(r'usercheckelement',views.UserCheckElementsList)
 
 urlpatterns = patterns('',
 
