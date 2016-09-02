@@ -109,7 +109,7 @@ class CheckViewSet(viewsets.ModelViewSet):
     """
     queryset = Check.objects.all()
     serializer_class = CheckSerializer
-
+    permission_classes = (IsAuthenticated,)
     def create(self, request, *args, **kwargs):
         serializer = CheckSerializer(data=request.data)
         if serializer.is_valid():
