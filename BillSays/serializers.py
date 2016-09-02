@@ -13,7 +13,7 @@ class CheckSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Check
-        fields = ('fk_user', 'date_created', 'image_url','fk_waitress','total_cost')
+        fields = ('fk_user', 'date_created', 'image_url', 'fk_waitress', 'total_cost')
 
 
 class CheckElementSerializer(serializers.ModelSerializer):
@@ -31,4 +31,4 @@ class RecognizedCheckSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Check
-        fields = ('id_waitress', 'dishes')
+        fields = ('fk_user', 'date_created', 'image_url', 'fk_waitress', 'total_cost', 'dishes')
