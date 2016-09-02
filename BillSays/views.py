@@ -15,8 +15,8 @@ from rest_framework.decorators import api_view, renderer_classes, detail_route
 from rest_framework import response, schemas
 from rest_framework import filters
 
-from BillSays.models import Friend, Check, Mention, Location, Waitress
-from BillSays.serializers import FriendSerializer, CheckSerializer, MentionSerializer
+from BillSays.models import Friend, Check, Mention, Location, Waitress, CheckElement
+from BillSays.serializers import FriendSerializer, CheckSerializer, MentionSerializer, RecognizedCheckSerializer
 from rest_framework import viewsets
 
 
@@ -112,7 +112,8 @@ class CheckViewSet(viewsets.ModelViewSet):
         if serializer.is_valid():
             test = serializer.save()
             self.generate_check(test)
-            return Response(CheckSerializer(instance=test).data)
+            self.generate_dishes(test)
+            return Response(RecognizedCheckSerializer(instance=test).data)
         else:
             return Response(serializer.errors, status=400)
 
@@ -141,6 +142,14 @@ class CheckViewSet(viewsets.ModelViewSet):
 
         check.fk_waitress = id_waitress
         check.save()
+
+    def generate_dishes(self, check):
+        for i in range(1, random.randrange(start=4, stop=10)):
+            CheckElement.object.create(fk_check=check,
+                                       name='dish' + str(random.randrange(100)),
+                                       cost=random.randrange(1000),
+                                       quantity=random.randrange(10)
+                                       )
 
 
 class MentionViewSet(viewsets.ModelViewSet):

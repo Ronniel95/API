@@ -125,6 +125,12 @@ class Check(models.Model):
 class CheckElement(models.Model):
     fk_check = models.ForeignKey(Check, on_delete=models.CASCADE, related_name='fk_check', null=True)
 
+    name = models.CharField(max_length=255)
+
+    cost = models.DecimalField(max_digits=5)
+
+    quantity = models.IntegerField(max_length=5)
+
 
 class Mention(models.Model):
     id = models.OneToOneField(Check,on_delete=models.CASCADE, primary_key=True)

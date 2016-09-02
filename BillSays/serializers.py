@@ -13,12 +13,13 @@ class CheckSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Check
-        fields = ('fk_user', 'date_created', 'image_url','fk_waitress')
+        fields = ('fk_user', 'date_created', 'image_url','fk_waitress','total_cost')
 
 
 class CheckElementSerializer(serializers.ModelSerializer):
     class Meta:
         model = CheckElement
+        fields = ('name','cost','quantity')
 
 class MentionSerializer(serializers.ModelSerializer):
     class Meta:
