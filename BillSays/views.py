@@ -144,7 +144,7 @@ class CheckViewSet(viewsets.ModelViewSet):
         check.save()
 
     def generate_dishes(self, check):
-        for i in range(1, random.randrange(start=4, stop=10)):
+        for i in range(1,6):
 
             CheckElement.objects.create(fk_check=check,
                                        name='dish' + str(random.randrange(100)),
