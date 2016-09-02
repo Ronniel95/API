@@ -1,5 +1,4 @@
 import random
-from wsgiref import headers
 
 from allauth.socialaccount.providers.vk.views import VKOAuth2Adapter
 from django.contrib.auth.models import User

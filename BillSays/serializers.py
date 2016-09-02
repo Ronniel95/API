@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from rest_framework import serializers
 
 from BillSays.models import Check, Friend, CheckElement, Mention, UserCheckElement
@@ -38,3 +39,10 @@ class RecognizedCheckSerializer(serializers.ModelSerializer):
 class UserCheckElementSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserCheckElement
+
+
+
+class UserSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = User
+        fields = ('url', 'username', 'email', 'groups')
