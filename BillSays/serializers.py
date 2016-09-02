@@ -31,4 +31,4 @@ class RecognizedCheckSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Check
-        fields = ('dishes')
+        fields = ('id_waitress', 'dishes')
