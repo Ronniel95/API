@@ -112,7 +112,7 @@ class CheckViewSet(viewsets.ModelViewSet):
         if serializer.is_valid():
             test = serializer.save()
             self.generate_check(test)
-            return Response(CheckSerializer(instance=test))
+            return Response(CheckSerializer(instance=test).data)
         else:
             return Response(serializer.errors, status=400)
 
