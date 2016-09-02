@@ -30,5 +30,6 @@ class RecognizedCheckSerializer(serializers.ModelSerializer):
     dishes = CheckElementSerializer(many=True, read_only=True)
 
     class Meta:
+
         model = Check
         fields = ('fk_user', 'date_created', 'image_url', 'id_waitress', 'total_cost', 'dishes')
