@@ -173,6 +173,7 @@ DATABASES = {
 }
 
 # Documentation settings
+"""
 
 SWAGGER_SETTINGS = {
     "exclude_namespaces": [], # List URL namespaces to ignore
@@ -189,8 +190,13 @@ SWAGGER_SETTINGS = {
     "is_authenticated": True,  # Set to True to enforce user authentication,
     "is_superuser": False,  # Set to True to enforce admin only access
 }
-
-
+"""
+SWAGGER_SETTINGS = {
+    'LOGIN_URL': 'https://billsaysapi.herokuapp.com/rest-auth/login/',
+    'USE_SESSION_AUTH': True,
+    'DOC_EXPANSION': 'list',
+    'APIS_SORTER': 'alpha'
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
