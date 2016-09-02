@@ -1,21 +1,22 @@
 import random
 from wsgiref import headers
 
-from IPython.utils import generics
+
 from allauth.socialaccount.providers.vk.views import VKOAuth2Adapter
 from django.contrib.auth import mixins
 from django.http import Http404
+from rest_framework.generics import GenericAPIView
 
 from rest_framework.pagination import PageNumberPagination
-from rest_framework.parsers import FileUploadParser
+
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
 from rest_auth.registration.views import SocialLoginView
-from rest_framework_jwt.authentication import JSONWebTokenAuthentication
+
 from rest_framework_swagger.renderers import OpenAPIRenderer, SwaggerUIRenderer
-from rest_framework.decorators import api_view, renderer_classes, detail_route
+from rest_framework.decorators import api_view, renderer_classes
 from rest_framework import response, schemas
 from rest_framework import filters
 
@@ -177,7 +178,7 @@ class MentionViewSet(viewsets.ModelViewSet):
         else:
             return Response(serializer.errors, status=400)
 
-class UserCheckElementsList(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
+class UserCheckElementsList(mixins.ListModelMixin, mixins.CreateModelMixin, GenericAPIView):
     queryset = UserCheckElement.objects.all()
     serializer_class = UserCheckElementSerializer
     permission_classes = (IsAuthenticated, )
