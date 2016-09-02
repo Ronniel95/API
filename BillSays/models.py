@@ -127,9 +127,9 @@ class CheckElement(models.Model):
 
     name = models.CharField(max_length=255)
 
-    cost = models.DecimalField(max_digits=5)
+    cost = models.DecimalField(max_digits=10,decimal_places=4)
 
-    quantity = models.IntegerField(max_length=5)
+    quantity = models.IntegerField()
 
 
 class Mention(models.Model):
