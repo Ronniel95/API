@@ -2,6 +2,7 @@ import random
 
 from allauth.socialaccount.providers.vk.views import VKOAuth2Adapter
 from django.contrib.auth.models import User
+from django.db.models import Q
 from django.http import Http404
 from rest_framework.generics import ListAPIView
 
@@ -20,7 +21,7 @@ from rest_framework import filters
 
 from BillSays.models import Friend, Check, Mention, Location, Waitress, CheckElement, UserCheckElement
 from BillSays.serializers import FriendSerializer, CheckSerializer, MentionSerializer, RecognizedCheckSerializer, \
-    UserCheckElementSerializer
+    UserCheckElementSerializer, UserSerializer
 from rest_framework import viewsets
 
 
@@ -215,5 +216,14 @@ class BookViewSet(viewsets.mixins.CreateModelMixin, viewsets.mixins.ListModelMix
             return Response(serializer.data, status=201, headers=headers)
 
 
-from django.contrib.auth.models import User
-from serializers import UserSerializer
+class UserViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+    def get_queryset(self):
+        return super(UserViewSet, self).get_queryset().filter(Q(username__contains=self.kwargs['name'])|
+                                                              Q(email__contains=self.kwargs['name']))
+

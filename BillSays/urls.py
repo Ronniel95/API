@@ -5,7 +5,7 @@ from rest_framework.routers import SimpleRouter
 
 from API import settings
 from BillSays import views
-from views import schema_view, FacebookLogin, VKLogin
+from views import schema_view, FacebookLogin, VKLogin, UserViewSet
 
 router = SimpleRouter()
 
@@ -21,6 +21,8 @@ router.register(r'usercheckelement',views.BookViewSet)
 urlpatterns = patterns('',
 
     url(r'^', include(router.urls)),
+
+    url(r'^users_list/(?P<name>[a-z,A-Z]+)/$', UserViewSet.as_view()),
 
     url(r'^friend/', views.FriendAPIListView.as_view()),
     url(r'^friend_instance/(?P<id>[0-9]+)/$',views.FriendAPIView.as_view()),
