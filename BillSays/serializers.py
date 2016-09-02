@@ -19,7 +19,7 @@ class CheckSerializer(serializers.ModelSerializer):
 class CheckElementSerializer(serializers.ModelSerializer):
     class Meta:
         model = CheckElement
-        fields = ('name','cost','quantity')
+        fields = ('id','name','cost','quantity')
 
 class MentionSerializer(serializers.ModelSerializer):
     class Meta:
