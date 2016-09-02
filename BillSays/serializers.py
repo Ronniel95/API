@@ -27,9 +27,9 @@ class MentionSerializer(serializers.ModelSerializer):
 
 
 class RecognizedCheckSerializer(serializers.ModelSerializer):
-    dishes = CheckElementSerializer(many=True, read_only=True)
+    fk_check = CheckElementSerializer(many=True, read_only=True)
 
     class Meta:
 
         model = Check
-        fields = ('fk_user', 'date_created', 'image_url', 'fk_waitress', 'total_cost', 'dishes')
+        fields = ('fk_user', 'date_created', 'image_url', 'fk_waitress', 'total_cost', 'fk_check')
