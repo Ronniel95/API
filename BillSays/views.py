@@ -1,7 +1,6 @@
 import random
 from wsgiref import headers
 
-
 from allauth.socialaccount.providers.vk.views import VKOAuth2Adapter
 from django.contrib.auth import mixins
 from django.http import Http404
@@ -150,13 +149,12 @@ class CheckViewSet(viewsets.ModelViewSet):
         check.save()
 
     def generate_dishes(self, check):
-        for i in range(1,6):
-
+        for i in range(1, 6):
             CheckElement.objects.create(fk_check=check,
-                                       name='dish' + str(random.randrange(100)),
-                                       cost=random.randrange(1000),
-                                       quantity=random.randrange(10)
-                                       )
+                                        name='dish' + str(random.randrange(100)),
+                                        cost=random.randrange(1000),
+                                        quantity=random.randrange(10)
+                                        )
 
 
 class MentionViewSet(viewsets.ModelViewSet):
@@ -178,22 +176,41 @@ class MentionViewSet(viewsets.ModelViewSet):
         else:
             return Response(serializer.errors, status=400)
 
-class UserCheckElementsList(mixins.ListModelMixin, mixins.CreateModelMixin, GenericAPIView):
+
+class BookViewSet(mixins.CreateModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
+    """
+    ViewSet create and list books
+
+    Usage single : POST
+    {
+        "name":"Killing Floor: A Jack Reacher Novel",
+        "author":"Lee Child"
+    }
+
+    Usage array : POST
+    [{
+        "name":"Mr. Mercedes: A Novel (The Bill Hodges Trilogy)",
+        "author":"Stephen King"
+    },{
+        "name":"Killing Floor: A Jack Reacher Novel",
+        "author":"Lee Child"
+    }]
+    """
     queryset = UserCheckElement.objects.all()
     serializer_class = UserCheckElementSerializer
-    permission_classes = (IsAuthenticated, )
 
-    def get(self, request, *args, **kwargs):
-        return self.list(request, *args, **kwargs)
 
-    def post(self, request, *args, **kwargs):
-        urls = request.data["urls"]
-
-        is_many = isinstance(urls, list)
+    def create(self, request, *args, **kwargs):
+        """
+        #checks if post request data is an array initializes serializer with many=True
+        else executes default CreateModelMixin.create function
+        """
+        is_many = isinstance(request.data, list)
         if not is_many:
-            return super(UserCheckElementsList, self).create(request, *args, **kwargs)
+            return super(BookViewSet, self).create(request, *args, **kwargs)
         else:
-            serializer = self.get_serializer(data=urls, many=True)
+            serializer = self.get_serializer(data=request.data, many=True)
             serializer.is_valid(raise_exception=True)
-            self.create_list(serializer)
+            self.perform_create(serializer)
+            headers = self.get_success_headers(serializer.data)
             return Response(serializer.data, status=201, headers=headers)
