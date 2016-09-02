@@ -140,8 +140,6 @@ class CheckViewSet(viewsets.ModelViewSet):
             id_waitress = Waitress.objects.get(name=waitress_name, fk_location=id_location)
 
         check.fk_waitress = id_waitress
-        import time
-        check.date_created = time.time()
         check.save()
 
 
