@@ -217,10 +217,3 @@ class BookViewSet(viewsets.mixins.CreateModelMixin, viewsets.mixins.ListModelMix
 
 from django.contrib.auth.models import User
 from serializers import UserSerializer
-
-
-class UserListView(ListAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-    filter_backends = (filters.SearchFilter,)
-    search_fields = ('username', 'email')
