@@ -2,9 +2,7 @@ import random
 from wsgiref import headers
 
 from allauth.socialaccount.providers.vk.views import VKOAuth2Adapter
-from django.contrib.auth import mixins
 from django.http import Http404
-from rest_framework.generics import GenericAPIView
 
 from rest_framework.pagination import PageNumberPagination
 
@@ -177,7 +175,7 @@ class MentionViewSet(viewsets.ModelViewSet):
             return Response(serializer.errors, status=400)
 
 
-class BookViewSet(mixins.CreateModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
+class BookViewSet(viewsets.mixins.CreateModelMixin, viewsets.mixins.ListModelMixin, viewsets.GenericViewSet):
     """
     ViewSet create and list books
 
