@@ -66,9 +66,12 @@ INSTALLED_APPS = [
     'drf_to_s3',
     'storages',
 
-
-
 ]
+
+
+REST_AUTH_SERIALIZERS = {
+    'USER_DETAILS_SERIALIZER': 'BillSays.serializers.UserSerializer'
+}
 
 REST_USE_JWT = True
 
