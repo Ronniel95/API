@@ -49,7 +49,9 @@ class UserSerializerPublic(serializers.HyperlinkedModelSerializer):
 
 
 class UserSerializer(UserDetailsSerializer):
-    id = serializers.CharField(source="django.contrib.auth.models.user.id")
+    id = serializers.IntegerField(source="usermodel.id")
 
     class Meta(UserDetailsSerializer.Meta):
         fields = UserDetailsSerializer.Meta.fields + ('id',)
+
+
