@@ -112,6 +112,7 @@ ACCOUNT_USERNAME_REQUIRED = False
 # auth and allauth settings
 LOGIN_REDIRECT_URL = '/'
 SOCIALACCOUNT_QUERY_EMAIL = True
+
 SOCIALACCOUNT_PROVIDERS = {
     'facebook': {
         'SCOPE': ['email', 'publish_actions'],
@@ -176,24 +177,7 @@ DATABASES = {
 }
 
 # Documentation settings
-"""
 
-SWAGGER_SETTINGS = {
-    "exclude_namespaces": [], # List URL namespaces to ignore
-    "api_version": '0.1',  # Specify your API's version
-    "api_path": "/docs/",  # Specify the path to your API not a root level
-    "enabled_methods": [  # Specify which methods to enable in Swagger UI
-        'get',
-        'post',
-        'put',
-        'patch',
-        'delete'
-    ],
-    "api_key": '(l2%=61ue!xphtji$-v-%xmua2w*2s4zbtl$#o!327b@n24q+-', # An API key
-    "is_authenticated": True,  # Set to True to enforce user authentication,
-    "is_superuser": False,  # Set to True to enforce admin only access
-}
-"""
 SWAGGER_SETTINGS = {
     'LOGIN_URL': 'https://billsaysapi.herokuapp.com/rest-auth/login/',
     'USE_SESSION_AUTH': True,
