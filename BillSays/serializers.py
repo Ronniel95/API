@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user, get_user_model
 from django.contrib.auth.models import User
 from rest_auth.serializers import UserDetailsSerializer
 from rest_framework import serializers
@@ -49,7 +50,7 @@ class UserSerializerPublic(serializers.HyperlinkedModelSerializer):
 
 
 class UserSerializer(UserDetailsSerializer):
-    id = serializers.IntegerField(source="usermodel.id")
+    id = serializers.IntegerField(source=get_user_model())
 
     class Meta(UserDetailsSerializer.Meta):
         fields = UserDetailsSerializer.Meta.fields + ('id',)
