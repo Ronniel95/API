@@ -70,7 +70,8 @@ INSTALLED_APPS = [
 
 
 REST_AUTH_SERIALIZERS = {
-    'USER_DETAILS_SERIALIZER': 'BillSays.serializers.UserSerializer'
+    'USER_DETAILS_SERIALIZER': 'BillSays.serializers.UserSerializer',
+    'LOGIN_SERIALIZER':'BillSays.serializers.UserSerializer1'
 }
 
 REST_USE_JWT = True

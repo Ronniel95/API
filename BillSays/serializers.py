@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user, get_user_model
 from django.contrib.auth.models import User
-from rest_auth.serializers import UserDetailsSerializer
+from rest_auth.serializers import UserDetailsSerializer, LoginSerializer
 from rest_framework import serializers
 
 from BillSays.models import Check, Friend, CheckElement, Mention, UserCheckElement
@@ -55,4 +55,9 @@ class UserSerializer(UserDetailsSerializer):
     class Meta(UserDetailsSerializer.Meta):
         fields = UserDetailsSerializer.Meta.fields + ('id',)
 
+class UserSerializer1(LoginSerializer):
+    id = serializers.IntegerField(source='User.id')
+
+    class Meta(LoginSerializer.Meta):
+        fields = LoginSerializer.Meta.fields + ('id',)
 
