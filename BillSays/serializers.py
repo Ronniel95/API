@@ -56,7 +56,7 @@ class UserSerializer(UserDetailsSerializer):
         fields = UserDetailsSerializer.Meta.fields + ('id',)
 
 class UserSerializer1(LoginSerializer):
-    id = serializers.IntegerField(source='User.id')
+    id = serializers.IntegerField(source='User.id',required=False)
 
     class Meta:
         fields = ('id',)
