@@ -49,9 +49,4 @@ class UserSerializerPublic(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'username', 'email')
 
 
-class UserDetailsSerializerNew(UserDetailsSerializer):
-    id = serializers.IntegerField(source='User.id',required=False)
-
-    class Meta(UserDetailsSerializer.Meta):
-        fields = UserDetailsSerializer.Meta.fields + ('id',)
 
