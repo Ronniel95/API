@@ -5,7 +5,7 @@ from rest_framework.routers import SimpleRouter
 
 from API import settings
 from BillSays import views
-from views import schema_view, FacebookLogin, VKLogin, UserViewSet
+from views import schema_view, FacebookLogin, VKLogin, UserViewSet, LoginViewNew
 
 router = SimpleRouter()
 
@@ -32,6 +32,7 @@ urlpatterns = patterns('',
 
     #loginning
     url(r'^rest-auth/', include('rest_auth.urls')),
+    url(r'^rest-auth/login_new/',LoginViewNew.as_view()),
 
     #registration
     url(r'^rest-auth/registration/', include('rest_auth.registration.urls')),

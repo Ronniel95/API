@@ -2,8 +2,9 @@ import random
 
 from allauth.socialaccount.providers.vk.views import VKOAuth2Adapter
 from django.contrib.auth.models import User
-from django.db.models import Q
+from django.db.models import Q, settings
 from django.http import Http404
+from rest_auth.views import LoginView
 from rest_framework.generics import ListAPIView
 
 from rest_framework.pagination import PageNumberPagination
@@ -21,7 +22,7 @@ from rest_framework import filters
 
 from BillSays.models import Friend, Check, Mention, Location, Waitress, CheckElement, UserCheckElement
 from BillSays.serializers import FriendSerializer, CheckSerializer, MentionSerializer, RecognizedCheckSerializer, \
-    UserCheckElementSerializer, UserSerializerPublic
+    UserCheckElementSerializer, UserSerializerPublic, UserDetailsSerializerNew
 from rest_framework import viewsets
 
 
@@ -228,3 +229,19 @@ class UserViewSet(viewsets.ModelViewSet):
                                                               Q(email__contains=self.kwargs['name']))
 
 
+class LoginViewNew(LoginView):
+    def get_response(self):
+        serializer_class = self.get_response_serializer()
+
+        if getattr(settings, 'REST_USE_JWT', False):
+            data = {
+                'user': self.user,
+                'token': self.token
+            }
+            serializer = UserDetailsSerializerNew(instance=data, context={'request': self.request})
+        else:
+            serializer = serializer_class(instance=self.token, context={'request': self.request})
+
+        return Response(serializer.data, status=200)
+
+        #        return super(LoginViewNew, self).get_response()
