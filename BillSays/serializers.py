@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from rest_auth.serializers import UserDetailsSerializer
 from rest_framework import serializers
 
 from BillSays.models import Check, Friend, CheckElement, Mention, UserCheckElement
@@ -20,7 +21,8 @@ class CheckSerializer(serializers.ModelSerializer):
 class CheckElementSerializer(serializers.ModelSerializer):
     class Meta:
         model = CheckElement
-        fields = ('id','name','cost','quantity')
+        fields = ('id', 'name', 'cost', 'quantity')
+
 
 class MentionSerializer(serializers.ModelSerializer):
     class Meta:
@@ -31,7 +33,6 @@ class RecognizedCheckSerializer(serializers.ModelSerializer):
     fk_check = CheckElementSerializer(many=True, read_only=True)
 
     class Meta:
-
         model = Check
         fields = ('fk_user', 'date_created', 'image_url', 'fk_waitress', 'total_cost', 'fk_check')
 
@@ -41,8 +42,12 @@ class UserCheckElementSerializer(serializers.ModelSerializer):
         model = UserCheckElement
 
 
-
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class UserSerializerPublic(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'username', 'email')
+
+
+class UserSerializer(UserDetailsSerializer):
+    class Meta(UserDetailsSerializer.Meta):
+        fields = UserDetailsSerializer.Meta.fields + ('id',)

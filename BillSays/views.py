@@ -21,7 +21,7 @@ from rest_framework import filters
 
 from BillSays.models import Friend, Check, Mention, Location, Waitress, CheckElement, UserCheckElement
 from BillSays.serializers import FriendSerializer, CheckSerializer, MentionSerializer, RecognizedCheckSerializer, \
-    UserCheckElementSerializer, UserSerializer
+    UserCheckElementSerializer, UserSerializerPublic
 from rest_framework import viewsets
 
 
@@ -218,12 +218,13 @@ class BookViewSet(viewsets.mixins.CreateModelMixin, viewsets.mixins.ListModelMix
 
 class UserViewSet(viewsets.ModelViewSet):
     """
-    API endpoint that allows users to be viewed or edited.
+    API endpoint that allows users to be viewed
     """
     queryset = User.objects.all()
-    serializer_class = UserSerializer
+    serializer_class = UserSerializerPublic
 
     def get_queryset(self):
         return super(UserViewSet, self).get_queryset().filter(Q(username__contains=self.kwargs['name'])|
                                                               Q(email__contains=self.kwargs['name']))
+
 
