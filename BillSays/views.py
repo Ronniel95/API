@@ -2,11 +2,11 @@ import random
 
 from allauth.socialaccount.providers.vk.views import VKOAuth2Adapter
 from django.contrib.auth.models import User
-from django.db.models import Q, settings
+from django.db.models import Q
 from django.http import Http404
 from rest_auth.views import LoginView
 from rest_framework.generics import ListAPIView
-
+from django.conf import settings
 from rest_framework.pagination import PageNumberPagination
 
 from rest_framework.permissions import IsAuthenticated
