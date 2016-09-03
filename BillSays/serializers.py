@@ -53,11 +53,11 @@ class UserDetailsSerializerNew(UserDetailsSerializer):
     id = serializers.IntegerField(source='User.id',required=False)
 
     class Meta(UserDetailsSerializer.Meta):
-        fields = UserDetailsSerializer.Meta.fields + ('id',)
+        fields = ('id',)+UserDetailsSerializer.Meta.fields
 
 
 
-class JWTSerializer(serializers.Serializer):
+class JWTSerializerNew(serializers.Serializer):
     """
     Serializer for JWT authentication.
     """
