@@ -4,26 +4,25 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.db.models import Q
 from django.http import Http404
+
 from rest_auth.app_settings import create_token
 from rest_auth.models import TokenModel
 from rest_auth.serializers import JWTSerializer, TokenSerializer, LoginSerializer
 from rest_auth.utils import jwt_encode
-from rest_framework.generics import GenericAPIView
+from rest_auth.registration.views import SocialLoginView
 
+from rest_framework.generics import GenericAPIView
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
-from rest_framework.settings import api_settings
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view, renderer_classes
-from rest_framework import response, schemas
-from rest_framework import filters
-from rest_framework import viewsets
+from rest_framework import response, schemas,filters,viewsets
+
 
 from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
 from allauth.socialaccount.providers.vk.views import VKOAuth2Adapter
 
-from rest_auth.registration.views import SocialLoginView
 
 from rest_framework_swagger.renderers import OpenAPIRenderer, SwaggerUIRenderer
 
@@ -33,7 +32,6 @@ from BillSays.serializers import FriendSerializer, CheckSerializer, MentionSeria
 
 from django.contrib.auth import (
     login as django_login,
-    logout as django_logout
 )
 
 @api_view()
