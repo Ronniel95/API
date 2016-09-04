@@ -44,7 +44,7 @@ def schema_view(request):
 
 class FacebookLogin(SocialLoginView):
     # permission_classes = (IsAuthenticated,)
-    adapter_class = SocialAccountAdapter#FacebookOAuth2Adapter
+    adapter_class = FacebookOAuth2Adapter
 
 
 class VKLogin(SocialLoginView):

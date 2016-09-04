@@ -1,6 +1,7 @@
 # Create your models here.
 from __future__ import unicode_literals
 
+from allauth.account.signals import user_logged_in
 from django.db import models
 
 # Create your models here.
@@ -162,3 +163,30 @@ class UserCheckElement(models.Model):
 @receiver(pre_save, sender=User)
 def update_username_from_email(sender, instance, **kwargs):
     instance.username = instance.email
+
+
+
+@receiver(user_logged_in, dispatch_uid="allauth.account.signals.user_logged_in")
+def auto_connect_social_account(request, user, **kwargs):
+    """
+    If user sucessfully login via social network, but he already has account (based on email),
+    he is provoke to login via email. After logged in, this signal create connection between social network and user account.
+    Next time user can use social network or email to login.
+    """
+
+    sociallogin = None
+    data = request.session.get('socialaccount_sociallogin', None)
+    if data:
+        from allauth.socialaccount.models import SocialLogin
+        sociallogin = SocialLogin.deserialize(data)
+
+    if not sociallogin:
+        return
+
+    if user.email != sociallogin.user.email:
+        return
+
+    from allauth.socialaccount.helpers import _add_social_account
+    _add_social_account(request, sociallogin)
+
+    del request.session['socialaccount_sociallogin']
