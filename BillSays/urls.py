@@ -3,7 +3,7 @@ from django.contrib import admin
 from rest_framework.routers import SimpleRouter
 
 
-from API import settings
+from django.conf import settings
 from BillSays import views
 from views import schema_view, FacebookLogin, VKLogin, UserViewSet
 
