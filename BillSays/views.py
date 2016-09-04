@@ -26,7 +26,6 @@ from allauth.socialaccount.providers.vk.views import VKOAuth2Adapter
 
 from rest_framework_swagger.renderers import OpenAPIRenderer, SwaggerUIRenderer
 
-from BillSays.adapters import SocialAccountAdapter
 from BillSays.models import Friend, Check, Mention, Location, Waitress, CheckElement, UserCheckElement
 from BillSays.serializers import FriendSerializer, CheckSerializer, MentionSerializer, RecognizedCheckSerializer, \
     UserCheckElementSerializer, UserSerializerPublic, UserDetailsSerializerNew, JWTSerializerNew
@@ -44,7 +43,7 @@ def schema_view(request):
 
 class FacebookLogin(SocialLoginView):
     # permission_classes = (IsAuthenticated,)
-    adapter_class = SocialAccountAdapter#FacebookOAuth2Adapter
+    adapter_class =FacebookOAuth2Adapter
 
 
 class VKLogin(SocialLoginView):
