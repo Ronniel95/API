@@ -1,7 +1,6 @@
 from allauth.account.models import EmailAddress
 from allauth.socialaccount.adapter import DefaultSocialAccountAdapter
 from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
-from django.contrib.auth.models import User
 
 
 class SocialAccountAdapter(FacebookOAuth2Adapter):
@@ -38,5 +37,5 @@ class SocialAccountAdapter(FacebookOAuth2Adapter):
             return
 
         # if it does, connect this new social login to the existing user
-        user = User.objects.get(email=sociallogin.account.user.email)
+        user = email_address.user
         sociallogin.connect(request, user)
