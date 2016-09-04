@@ -1,8 +1,9 @@
 # Create your models here.
 from __future__ import unicode_literals
 
+from allauth.account.app_settings import app_settings
+from allauth.account.signals import user_logged_in
 from allauth.account.utils import perform_login
-from allauth.socialaccount.app_settings import app_settings
 from allauth.socialaccount.signals import pre_social_login
 from django.db import models
 
