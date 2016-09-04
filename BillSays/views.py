@@ -29,8 +29,7 @@ from rest_framework_swagger.renderers import OpenAPIRenderer, SwaggerUIRenderer
 
 from BillSays.models import Friend, Check, Mention, Location, Waitress, CheckElement, UserCheckElement
 from BillSays.serializers import FriendSerializer, CheckSerializer, MentionSerializer, RecognizedCheckSerializer, \
-    UserCheckElementSerializer, UserSerializerPublic, UserDetailsSerializerNew
-
+    UserCheckElementSerializer, UserSerializerPublic, UserDetailsSerializerNew, JWTSerializerNew
 
 from django.contrib.auth import (
     login as django_login,
@@ -262,7 +261,7 @@ class LoginView(GenericAPIView):
 
     def get_response_serializer(self):
         if getattr(settings, 'REST_USE_JWT', False):
-            response_serializer = JWTSerializer
+            response_serializer = JWTSerializerNew
         else:
             response_serializer = TokenSerializer
         return response_serializer
