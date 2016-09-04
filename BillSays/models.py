@@ -7,9 +7,11 @@ from django.db import models
 
 # Create your models here.
 from django.contrib.auth.models import User, Group
-from django.db.models import Model, settings
+from django.db.models import Model
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
+
+from django.conf import settings
 
 
 class Friend(models.Model):
