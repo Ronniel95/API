@@ -37,5 +37,5 @@ class SocialAccountAdapter(FacebookOAuth2Adapter):
             return
 
         # if it does, connect this new social login to the existing user
-        user = email_address.user
+        user = User.objects.get(email=sociallogin.account.user.email)
         sociallogin.connect(request, user)
