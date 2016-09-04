@@ -9,6 +9,8 @@ from django.db.models import Model
 
 
 # level 1
+from django.dispatch import receiver
+
 
 class Friend(models.Model):
     """
@@ -150,3 +152,11 @@ class UserCheckElement(models.Model):
     fk_check_element = models.ForeignKey(CheckElement,related_name='fk_user')
 
     cost = models.DecimalField(decimal_places=4,max_digits=7)
+
+
+
+from django.db.models.signals import pre_save
+
+@receiver(pre_save, sender=User)
+def update_username_from_email(sender, instance, **kwargs):
+    instance.username = instance.email

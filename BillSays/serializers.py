@@ -50,13 +50,10 @@ class UserSerializerPublic(serializers.HyperlinkedModelSerializer):
 
 
 class UserDetailsSerializerNew(UserDetailsSerializer):
-    #id = serializers.IntegerField(source='User.id',required=False)
-
     class Meta(UserDetailsSerializer.Meta):
         model = User
-        fields = ('id', 'username', 'email',)
+        fields = ('id', 'username', 'email')
 
-        #    fields = ('id',)#+UserDetailsSerializer.Meta.fields
 
 
 
