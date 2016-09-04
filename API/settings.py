@@ -246,12 +246,11 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 #For email
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'malenovskiy2463@gmail.com'
 
-#Must generate specific password for your app in [gmail settings][1]
-EMAIL_HOST_PASSWORD = 'KOBE2463'
-EMAIL_PORT = 587
+EMAIL_HOST = 'mail.billsays.me'
+EMAIL_HOST_USER = 'info@billsays.me'
+EMAIL_HOST_PASSWORD = 'NotCardio22'
+EMAIL_PORT = 26
 
 #This did the trick
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
