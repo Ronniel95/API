@@ -9,7 +9,7 @@ from django.db import models
 
 # Create your models here.
 from django.contrib.auth.models import User, Group
-from django.db.models import Model
+from django.db.models import Model, settings
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
 
@@ -174,4 +174,4 @@ def link_to_local_user(sender, request, sociallogin, **kwargs):
     email_address = sociallogin.account.extra_data['email']
     users = User.objects.filter(email=email_address)
     if users:
-        perform_login(request, users[0], email_verification=app_settings.EMAIL_VERIFICATION)
+        perform_login(request, users[0], email_verification=settings.EMAIL_VERIFICATION)
