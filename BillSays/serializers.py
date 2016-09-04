@@ -53,7 +53,7 @@ class UserDetailsSerializerNew(UserDetailsSerializer):
     id = serializers.IntegerField(source='User.id',required=False)
 
     class Meta(UserDetailsSerializer.Meta):
-        fields = ('id',)+UserDetailsSerializer.Meta.fields
+        fields = ('id',)#+UserDetailsSerializer.Meta.fields
 
 
 
