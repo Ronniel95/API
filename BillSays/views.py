@@ -8,6 +8,7 @@ from django.http import Http404
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.settings import api_settings
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view, renderer_classes
 from rest_framework import response, schemas
@@ -23,7 +24,7 @@ from rest_framework_swagger.renderers import OpenAPIRenderer, SwaggerUIRenderer
 
 from BillSays.models import Friend, Check, Mention, Location, Waitress, CheckElement, UserCheckElement
 from BillSays.serializers import FriendSerializer, CheckSerializer, MentionSerializer, RecognizedCheckSerializer, \
-    UserCheckElementSerializer, UserSerializerPublic
+    UserCheckElementSerializer, UserSerializerPublic, UserDetailsSerializerNew
 
 
 @api_view()
@@ -229,3 +230,13 @@ class UserViewSet(viewsets.ModelViewSet):
                                                               Q(email__contains=self.kwargs['name']))
 
 
+class LoginView(APIView):
+    authentication_classes = api_settings.DEFAULT_AUTHENTICATION_CLASSES
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, format=None):
+        #token = AuthToken.objects.create(request.user)
+        return Response({
+            "user": UserDetailsSerializerNew(request.user).data,
+         #   "token": token,
+        })
