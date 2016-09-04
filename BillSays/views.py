@@ -1,8 +1,8 @@
 import random
 
-
+from django.conf import settings
 from django.contrib.auth.models import User
-from django.db.models import Q, settings
+from django.db.models import Q
 from django.http import Http404
 from rest_auth.app_settings import create_token
 from rest_auth.models import TokenModel
