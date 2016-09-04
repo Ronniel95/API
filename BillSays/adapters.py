@@ -1,6 +1,7 @@
 from allauth.account.models import EmailAddress
 from allauth.socialaccount.adapter import DefaultSocialAccountAdapter
 from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
+from django.contrib.auth.models import User
 
 
 class SocialAccountAdapter(FacebookOAuth2Adapter):
