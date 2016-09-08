@@ -76,7 +76,7 @@ REST_AUTH_SERIALIZERS = {
     'JWT_SERIALIZER':'BillSays.serializers.JWTSerializerNew',
 }
 
-REST_USE_JWT = True
+REST_USE_JWT = False
 
 REST_FRAMEWORK_DOCS = {
     'HIDE_DOCS': False  # Default: False
@@ -93,7 +93,8 @@ REST_FRAMEWORK = {
         #'rest_framework.authentication.TokenAuthentication',
 
         'rest_framework.authentication.SessionAuthentication',
-        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+
     ),
 
     'DEFAULT_PERMISSION_CLASSES': (
