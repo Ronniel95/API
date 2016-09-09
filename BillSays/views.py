@@ -132,7 +132,7 @@ class CheckViewSet(viewsets.ModelViewSet):
         serializer = CheckSerializer(data=request.data)
         if serializer.is_valid():
             test = serializer.save()
-            receipt = procces_receipt_image(test.image_url)
+            receipt = 'dd'#procces_receipt_image(test.image_url)
             self.generate_check(test,receipt)
             self.generate_dishes(test,receipt)#,temp.formed_dish_list)
             return Response(RecognizedCheckSerializer(instance=test).data)
@@ -145,8 +145,8 @@ class CheckViewSet(viewsets.ModelViewSet):
         id_location = 0
         id_waitress = 0
         #if()
-        restaurant_name = receipt.place#'restaurant_' + str(random.randrange(5))
-        waitress_name = receipt.service#'waitress_' + str(random.randrange(5))
+        restaurant_name = 'restaurant_' + str(random.randrange(5))#receipt.place#'restaurant_' + str(random.randrange(5))
+        waitress_name = 'waitress_' + str(random.randrange(5))#receipt.service#'waitress_' + str(random.randrange(5))
         if(restaurant_name == None):
             restaurant_name ='failed'
 
@@ -171,8 +171,8 @@ class CheckViewSet(viewsets.ModelViewSet):
     def generate_dishes(self, check,dishes):
         for keys, values in dishes.formed_dish_list.items():
             CheckElement.objects.create(fk_check=check,
-                                        name=keys,
-                                        cost=values,
+                                        name='Dish_' + str(random.randrange(5)),#keys,
+                                        cost=random.randrange(200),#values,
                                         quantity=random.randrange(10)
                                         )
 
