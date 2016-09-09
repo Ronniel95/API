@@ -165,10 +165,10 @@ class CheckViewSet(viewsets.ModelViewSet):
         check.fk_waitress = id_waitress
         check.save()
 
-    def generate_dishes(self, check):
-        for i in range(1, 6):
+    def generate_dishes(self, check,dishes):
+        for i in range(0, len(dishes)):
             CheckElement.objects.create(fk_check=check,
-                                        name='dish' + str(random.randrange(100)),
+                                        name=dishes[i].place,
                                         cost=random.randrange(1000),
                                         quantity=random.randrange(10)
                                         )
