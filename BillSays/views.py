@@ -197,6 +197,7 @@ class MentionViewSet(viewsets.ModelViewSet):
             return Response(serializer.errors, status=400)
 
 
+
 class BookViewSet(viewsets.mixins.CreateModelMixin, viewsets.mixins.ListModelMixin, viewsets.GenericViewSet):
     """
     ViewSet create and list books
