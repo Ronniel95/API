@@ -36,6 +36,9 @@ from django.contrib.auth import (
     login as django_login,
 )
 
+from Processing.Pipeline_GreVitRon import procces_receipt_image
+
+
 @api_view()
 @renderer_classes([SwaggerUIRenderer, OpenAPIRenderer])
 def schema_view(request):
@@ -129,6 +132,7 @@ class CheckViewSet(viewsets.ModelViewSet):
         serializer = CheckSerializer(data=request.data)
         if serializer.is_valid():
             test = serializer.save()
+            temp = procces_receipt_image(test.image_url)
             self.generate_check(test)
             self.generate_dishes(test)
             return Response(RecognizedCheckSerializer(instance=test).data)
