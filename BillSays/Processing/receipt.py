@@ -106,7 +106,6 @@ class Receipt(object):
             formed_dish_list.update({name_dish: price})
         return formed_dish_list
 
-
     def print_formed_dish_list(self):
         for keys, values in self.formed_dish_list.items():
             print(keys)
