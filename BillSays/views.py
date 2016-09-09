@@ -132,21 +132,24 @@ class CheckViewSet(viewsets.ModelViewSet):
         serializer = CheckSerializer(data=request.data)
         if serializer.is_valid():
             test = serializer.save()
-            temp = procces_receipt_image(test.image_url)
-            self.generate_check(test)
-            self.generate_dishes(test)
+            receipt = procces_receipt_image(test.image_url)
+            self.generate_check(test,receipt)
+            self.generate_dishes(test,receipt)#,temp.formed_dish_list)
             return Response(RecognizedCheckSerializer(instance=test).data)
         else:
             return Response(serializer.errors, status=400)
 
-    def generate_check(self, check):
+    def generate_check(self, check,receipt):
         check.total_cost = random.randrange(1000)
 
         id_location = 0
         id_waitress = 0
+        #if()
+        restaurant_name = receipt.place#'restaurant_' + str(random.randrange(5))
+        waitress_name = receipt.service#'waitress_' + str(random.randrange(5))
+        if(restaurant_name == None):
+            restaurant_name ='failed'
 
-        restaurant_name = 'restaurant_' + str(random.randrange(5))
-        waitress_name = 'waitress_' + str(random.randrange(5))
 
         if Location.objects.filter(name=restaurant_name).count() == 0:
             location = Location(name=restaurant_name)
@@ -166,10 +169,10 @@ class CheckViewSet(viewsets.ModelViewSet):
         check.save()
 
     def generate_dishes(self, check,dishes):
-        for i in range(0, len(dishes)):
+        for keys, values in dishes.formed_dish_list.items():
             CheckElement.objects.create(fk_check=check,
-                                        name=dishes[i].place,
-                                        cost=random.randrange(1000),
+                                        name=keys,
+                                        cost=values,
                                         quantity=random.randrange(10)
                                         )
 

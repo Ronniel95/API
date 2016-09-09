@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import os
 
 __author__ = 'gregory'
 
@@ -16,7 +17,12 @@ import yaml
 
 
 def read_config():
-    stream = open("config.yml", "r")
+
+    #print os.path.dirname(os.path.realpath(__file__))
+
+    test = os.path.dirname(os.path.realpath(__file__))
+
+    stream = open(os.path.join(test, "config.yml"), "r")
     docs = yaml.safe_load(stream)
     return objectview(docs)
 

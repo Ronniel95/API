@@ -91,8 +91,8 @@ class Receipt(object):
                     line = self.fuzzy_find(spelling, accuracy)
                     if line:
                         #print line  # , accuracy, service
-                        return service
-                        #return line
+                        #return service
+                        return line
 
     def form_dish_list(self):
         formed_dish_list = OrderedDict()
