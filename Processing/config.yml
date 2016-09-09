@@ -1,0 +1,150 @@
+# -*- coding: utf-8 -*-
+---
+# Where the receipts are stored
+# Receipts should be simple text files
+receipts_path: "out"
+
+# Market names roughly ordered by likelyhood.
+# Can contain places locations for fuzzy parsing
+places:
+  KFC:
+     - KFC
+     - (закусочна) "КFС "
+  Сушия:
+     - СушиЯ
+     - СУШІЯ
+     - Сушия
+  Сільпо:
+     - СІЛЬПО
+     - Сільпо
+     - Фоззі
+  Варус:
+     - Варус
+     - ВАРУС
+  Челентано:
+     - Celentano
+  Банка:
+     - Banka
+     - Банка
+     - БАНКА
+  Катюша:
+     - КАТЮША
+     - Вареничная Катюша
+  Євразія:
+    - Євразія
+  АШАН:
+     - ашан
+     - Ашан
+  Drugstore:
+    - ТОВ "БЛАГОДІЯ "
+  Окко:
+     - Окко
+     - ОККО
+  Salateira:
+     - salateira
+     - салатейра
+  Blue cup:
+     - the blue cup
+  Soul Cafe:
+     - soul cafe
+  Чашка:
+    - espresso bar
+    - чашка
+  Подшоффе:
+    - подшоффе
+
+# Key words for cash desk waiter etc
+service:
+  Served:
+    - офиц.
+    - официант
+    - офіціант
+    - оператор
+    - каса
+    - касир
+
+
+
+# Sum keys roughly ordered by likelyhood.
+sum_keys:
+  - сума
+  - сумма
+  - итого
+  - разом
+  - підсумок
+  - до сплати
+  - всього
+  - к оплате
+
+#  Key words for distinguishing dishes from meta data due to stop searching when we see one of this words
+dish_key_exceptions:
+  # TODO: callibrate accuracy of fuzzy matching or cleansed list of exceptions
+  - сума
+  - сума податку
+  - сумма
+  - всього
+ # - РЕШТА
+  - до сплати
+  - знижка
+  - гроші
+  - итого
+  - к оплате
+  - разом
+  - готівка
+  - Здача
+  #- Карткою
+  - пром. підсум.
+  - безготівкова
+
+# dictionary for smart dish searching
+# not in use now
+dish_keys:
+  - котлета
+  - БОРЩ
+  - борщ
+  - Узвар
+  - Котлета
+  - Хліб
+  - чай
+  - вода
+
+
+# TODO: expand set of digits with letter 'o' 'в' 'i' 'э' 'з'
+# TODO : one space before price
+# [0-9,о,в,і,э,з]
+
+rule_base:
+  'o' : 0
+  'в' : 8
+  'э' : 3
+  'з' : 3
+  'і' : 1
+  'i' : 1
+  'о' : 0
+
+
+
+
+sum_format: '[0-9,о,в,і,э,з]+(\.\s?|,\s?|\s?[-,.])\s?[0-9,о,в,і,э,з]{2}$'
+
+#dish_format: '\d+[.,;]\s?\d{2}\s+А?' # weak condition  e.g. blabla 1221212(,.;)21
+
+#dish_format: '[0-9,о,в,і,э,з]+(\.\s?|,\s?|[^a-zA-Z[0-9,о,в,і,э,з]])[0-9,о,в,і,э,з]{2}-?А?\s+'  # strong condition
+
+dish_format: '[0-9,о,в,і,э,з]+(\.\s?|,\s?|\s?[.,-])\s?[0-9,о,в,і,э,з]{2}-?А?\s+А?В?$'  #    Matches data like 23 . 21  or  1233. 84
+
+phone_format: '((\d{3,4})[ ()-]{0,3}|)(\d{3})[ -]{0,3}(\d{2})[ -]{0,3}(\d{2})[ -]{0,3}(\d*)$'
+
+
+# TODO: need to test seriously
+time_format: '\s?\d{1,2}[:;]\d{2}\s?'
+
+# TODO: need to test seriously
+# Logic : if beer 0,5 2 it is ok
+amount_format: '\s+[1-9]{1,2}'
+
+
+
+# Matches dates like 19.08.15 and 19. 08. 2015
+date_format: '.*?(?P<date>(\d{2,4}(\.\s?|[^a-zA-Z\d])\d{2}(\.\s?|[^a-zA-Z\d])(20)?1[3-6]))\s+'
+
