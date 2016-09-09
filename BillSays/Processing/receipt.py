@@ -1,6 +1,6 @@
 import re
 from difflib import get_close_matches
-from collections import defaultdict, OrderedDict
+from collections import OrderedDict
 
 class Receipt(object):
     def __init__(self, config, raw):

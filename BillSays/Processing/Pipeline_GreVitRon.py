@@ -8,7 +8,7 @@ from detect_rectangle_on_image import ContoursRecognition
 from change_resolution import * #resize_picture_dir, save_picture_orientation
 from binarization import Binarization
 from rotation import *
-import time
+
 from perspective_trnsfrm import *
 import lines_and_tesseract
 from receipt import Receipt

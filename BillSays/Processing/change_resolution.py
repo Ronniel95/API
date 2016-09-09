@@ -4,7 +4,7 @@ __author__ = 'gregory'
 from PIL import Image, ExifTags
 import timeit
 import numpy as np
-import cv2
+
 
 
 def resize_picture_dir(input_file, output_file, SIZE_CONST):

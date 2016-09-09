@@ -1,7 +1,6 @@
-import numpy as np
 import cv2
-from matplotlib import pyplot as plt
-from change_resolution import resize_picture_dir, resize_picture_file, save_picture_orientation
+
+from change_resolution import  resize_picture_file, save_picture_orientation
 from PIL import Image
 from time import clock
 

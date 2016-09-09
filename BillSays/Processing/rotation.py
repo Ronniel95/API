@@ -12,10 +12,8 @@ It doesn't work with black borders
 from __future__ import division, print_function
 from skimage.transform import radon
 from PIL import Image
-from numpy import asarray, mean, array, blackman
+from numpy import asarray, mean, array
 import numpy
-from numpy.fft import rfft
-import matplotlib.pyplot as plt
 from matplotlib.mlab import rms_flat
 import cv2
 import time
