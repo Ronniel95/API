@@ -3,6 +3,8 @@ import cv2
 import numpy as np
 import math
 import time
+from itertools import groupby
+import operator
 
 
 class ContoursRecognition:
@@ -12,7 +14,7 @@ class ContoursRecognition:
     _MEDIAN_BLUR_SIZE = 15
     _ADAPTIVE_THRESHOLD_SIZE = 9
     _ADAPTIVE_THRESHOLD_CONST = 3
-    _WHITE_THRESHOLD = 173.45390
+    _WHITE_THRESHOLD = 120.45390 # 173.45390
 
     def __init__(self, image):
         """Internal initialization.
@@ -22,6 +24,7 @@ class ContoursRecognition:
         self.img_area_max = 0.95 * image.shape[0] * image.shape[1]
         self.img_area_min = 0.25 * self.img_area_max
         self.blurred = image
+        self.img = image
         self.is_background_white = False
         self.is_white = False
 
@@ -59,26 +62,46 @@ class ContoursRecognition:
 
     def find_bill_contour(self):
         """Main function, it tries to find contours of the bill."""
-        self.extract_contour_by_channels()
+        self.extract_contour_by_gray()
         if not self.big_countor.size:
-            self.extract_contour_by_gray()
+            self.extract_contour_by_channels()
         if not self.big_countor.size:
             self.check_white_background()
         return self.big_countor
 
 
-    def is_chosen_best_contour(self, gray_image):
+    def is_chosen_best_contour(self, gray_image, it):
         """Defines if contour is extracted succesfully on pre-filtered image.
         Mutual function for two methods of contour extraction.
         gray_image - image in gray scale
         """
+        # clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(9, 9))
+        # tmp = clahe.apply(gray_image)
+
+        #tmp = cv2.equalizeHist(gray_image)   #!!!!! better
+
+        #tmp = cv2.bilateralFilter(tmp, 3, 75, 75)
+        #cv2.imwrite("Contoured/" + str(it) + "_equalized.jpg", gray_img)
 
         thresh = cv2.adaptiveThreshold(gray_image, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY,
                                        self._ADAPTIVE_THRESHOLD_SIZE, self._ADAPTIVE_THRESHOLD_CONST)  # 9 3
-        kernel = np.ones((5, 5), np.uint8)
+        kernel = np.ones((4, 4), np.uint8)
+        #opening = thresh
         opening = cv2.morphologyEx(thresh, cv2.MORPH_OPEN, kernel)
+        #opening[0:20, :] = 255
+        #opening[3:6, :] = 0
+        # TODO: is used for DEBUG
+        # cv2.imwrite("Contoured/" + str(it) + "_processed.jpg", opening)
+        # backtorgb = cv2.cvtColor(opening, cv2.COLOR_GRAY2RGB)
+        # im_cp0 = backtorgb.copy()
         contours, _ = cv2.findContours(opening.copy(), cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
+        # cv2.drawContours(im_cp0, contours, -1, (0, 255, 0), 1)
+        #cv2.imwrite("Contoured/" + str(it) + "_contours.jpg", im_cp0)
         is_founded = False
+        #cntr_area = [] # TODO: is used for DEBUG
+        #cntr_area_bool = []
+        #cntr_dict = []
+        # print len(contours)
         for contour in contours:
             if is_founded: break  # approximate contour with accuracy proportional
             # to the contour perimeter
@@ -87,6 +110,11 @@ class ContoursRecognition:
             # area may be positive or negative - in accordance with the
             # contour orientation
             contour_area = abs(cv2.contourArea(approx))
+            #cntr_dict.append([contour, contour_area])
+            #cntr_area.append(contour_area)
+            #cntr_area_bool.append(self.img_area_min < contour_area < self.img_area_max)
+            # print len(approx) == 4, self.img_area_min < contour_area < self.img_area_max, cv2.isContourConvex(
+            #         approx)
             if len(approx) == 4 and self.img_area_min < contour_area < self.img_area_max and cv2.isContourConvex(
                     approx):
                 maxCosine = 0
@@ -97,23 +125,38 @@ class ContoursRecognition:
                 if maxCosine < 0.5:
                     self.big_countor = approx
                     is_founded = True
+        # TODO: it is used for debug
+        # print max(cntr_area), min(cntr_area)
+        # print [len(list(group)) for key, group in groupby(cntr_area_bool)]
+        # sorted_x = sorted(cntr_dict, key=operator.itemgetter(1))
+        # n = len(sorted_x)
+        # for i in xrange(0, 2):
+        #     cr = sorted_x[n - i - 1][0]
+        #     # print cv2.isContourConvex(cr)
+        #     img_cp1 = backtorgb.copy()
+        #     cv2.drawContours(img_cp1, [cv2.approxPolyDP(cr, cv2.arcLength(cr, True) * 0.02, True)], -1, (0, 255, 0), 2)
+        #     cv2.imwrite("Contoured/" + "cn" + str(it) + str(i) + "_contours.jpg", img_cp1)
         return is_founded
 
     def extract_contour_by_gray(self):
         """Converting to grayscale and searching for contour
         """
-        self.blurred = cv2.medianBlur(self.blurred.copy(), 9)
+        self.blurred = cv2.medianBlur(self.blurred.copy(), 9) # 9
         gray = cv2.cvtColor(self.blurred, cv2.COLOR_BGR2GRAY)
-        self.is_chosen_best_contour(gray)
+        self.is_chosen_best_contour(gray, 0)
 
 
     def extract_contour_by_channels(self):
         """Searching for contour by each channel.
         """
-        self.blurred = cv2.medianBlur(self.blurred.copy(), 15)
+        self.blurred = cv2.medianBlur(self.blurred.copy(), 15) # 15
         channels = cv2.split(self.blurred)
+        it = 0 # debug variable
         for gray in channels:
-            if self.is_chosen_best_contour(gray): break
+            it+=1
+            if self.is_chosen_best_contour(gray, it):
+                break
+            # break
 
     def angle(self, pt1, pt2, pt0):
         dx1 = pt1[0] - pt0[0]
@@ -123,7 +166,6 @@ class ContoursRecognition:
         vec1 = [dx1 / math.sqrt(dx1 * dx1 + dy1 * dy1), dy1 / math.sqrt(dx1 * dx1 + dy1 * dy1)]
         vec2 = [dx2 / math.sqrt(dx2 * dx2 + dy2 * dy2), dy2 / math.sqrt(dx2 * dx2 + dy2 * dy2)]
         return vec1[0] * vec2[0] + vec1[1] * vec2[1]
-
 
 
 if __name__ == '__main__':

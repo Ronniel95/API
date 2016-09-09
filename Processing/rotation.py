@@ -30,8 +30,55 @@ try:
 except ImportError:
     from numpy import argmax
 
+def get_rotation_angle(cv2_image):
+    # rotation constraint: after perspective transform with correct bill contours
+    # rotation cannot be more than 20 degrees
+    # these is just a restriction not to make a rotation along sometimes drawn thin vertical stripes
+
+    _ROT_CONSTRAINT = 20
+    pil_im = Image.fromarray(cv2_image)
+    I = pil_im.convert('L')
+    I = I - mean(I)  # Demean; make the brightness extend above and below zero
+    # plt.subplot(2, 2, 1)
+    # plt.imshow(I)
+    # Do the radon transform and display the result
+    # st = time.clock()
+    sinogram = radon(I)
+    # fn = time.clock()
+    # print("radon transform time", fn - st)
+    #plt.subplot(2, 2, 2)
+    #plt.imshow(sinogram.T, aspect='auto')
+    #plt.gray()
+    # Find the RMS value of each row and find "busiest" rotation,
+    # where the transform is lined up perfectly with the alternating dark
+    # text and white lines
+    r = array(map(rms_flat, sinogram.transpose()))
+    rotation = argmax(r)
+    rot_angle = 90 - rotation
+    if abs(rot_angle) < _ROT_CONSTRAINT:
+        return rot_angle
+    return 0
+
+
+def rotate_on_angle(angle, cv2_image):
+    if angle:
+        rows = cv2_image.shape[0]
+        cols = cv2_image.shape[1]
+        M = cv2.getRotationMatrix2D((cols/2,rows/2), angle, 1)
+        if len(cv2_image.shape) == 3:
+            dst = cv2.warpAffine(cv2_image, M,(cols,rows), borderValue=(255, 255, 255))
+        else:
+            dst = cv2.warpAffine(cv2_image, M,(cols,rows), borderValue=255)
+        return dst
+    return cv2_image
+
+
 
 def rotate_img(cv2_image):
+    # rotation constraint: after perspective transform with correct bill contours
+    # rotation cannot be more than 20 degrees
+    # these is just a restriction not to make a rotation along sometimes drawen thin vertical stripes
+    _ROT_CONSTRAINT = 20
     pil_im = Image.fromarray(cv2_image)
     I = pil_im.convert('L')
     I = I - mean(I)  # Demean; make the brightness extend above and below zero
@@ -53,17 +100,22 @@ def rotate_img(cv2_image):
     # text and white lines
     r = array(map(rms_flat, sinogram.transpose()))
     rotation = argmax(r)
-    # print('Rotation: {:.2f} degrees'.format(90 - rotation))
+
+    rot_angle = 90 - rotation
+    #print(rotation)
+    #print('Rotation: {:.2f} degrees'.format(90 - rotation))
     # plt.axhline(rotation, color='r')
 
     # rotation by affine transform
-    rows, cols = cv2_image.shape
-    M = cv2.getRotationMatrix2D((cols/2,rows/2), 90 - rotation, 1)
-    dst = cv2.warpAffine(cv2_image, M,(cols,rows), borderValue=255)
-    #fn_g = time.clock()
-    # print("time_global", fn_g - st_g)
-    return dst
-    # cv2.imwrite(output_file, dst)
+    if abs(rot_angle) < _ROT_CONSTRAINT:
+        rows, cols = cv2_image.shape
+        M = cv2.getRotationMatrix2D((cols/2,rows/2), rot_angle, 1)
+        dst = cv2.warpAffine(cv2_image, M,(cols,rows), borderValue=255)
+        #fn_g = time.clock()
+        # print("time_global", fn_g - st_g)
+        # cv2.imwrite(output_file, dst)
+        return dst
+    return cv2_image
 
 
 
