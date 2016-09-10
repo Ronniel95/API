@@ -288,6 +288,7 @@ class LoginView(GenericAPIView):
 
     def get_response(self):
         serializer_class = self.get_response_serializer()
+        """
 
         if getattr(settings, 'REST_USE_JWT', False):
             data = {
@@ -297,7 +298,12 @@ class LoginView(GenericAPIView):
             serializer = serializer_class(instance=data, context={'request': self.request})
         else:
             serializer = serializer_class(instance=self.token, context={'request': self.request})
-
+        """
+        data = {
+            'user': self.user,
+            'token': self.token
+        }
+        serializer = serializer_class(instance=data, context={'request': self.request})
         return Response(serializer.data, status=200)
 
     def post(self, request, *args, **kwargs):
