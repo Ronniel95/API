@@ -20,23 +20,20 @@ from rest_framework.decorators import api_view, renderer_classes
 from rest_framework import response, schemas,filters,viewsets
 
 
-from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
 from allauth.socialaccount.providers.vk.views import VKOAuth2Adapter
 
 
 from rest_framework_swagger.renderers import OpenAPIRenderer, SwaggerUIRenderer
 
-#from BillSays.adapters import SocialAccountAdapter
 from BillSays.adapters import MyAdapter
 from BillSays.models import Friend, Check, Mention, Location, Waitress, CheckElement, UserCheckElement
 from BillSays.serializers import FriendSerializer, CheckSerializer, MentionSerializer, RecognizedCheckSerializer, \
-    UserCheckElementSerializer, UserSerializerPublic, UserDetailsSerializerNew, JWTSerializerNew
+    UserCheckElementSerializer, UserSerializerPublic, JWTSerializerNew
 
 from django.contrib.auth import (
     login as django_login,
 )
 
-from Processing.Pipeline_GreVitRon import procces_receipt_image
 
 
 @api_view()
@@ -169,7 +166,8 @@ class CheckViewSet(viewsets.ModelViewSet):
         check.save()
 
     def generate_dishes(self, check,dishes):
-        for keys, values in dishes.formed_dish_list.items():
+        #for keys, values in dishes.formed_dish_list.items():
+        for i in range(0,10):
             CheckElement.objects.create(fk_check=check,
                                         name='Dish_' + str(random.randrange(5)),#keys,
                                         cost=random.randrange(200),#values,
