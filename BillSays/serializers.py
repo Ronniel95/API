@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user, get_user_model
 from django.contrib.auth.models import User
-from rest_auth.serializers import UserDetailsSerializer, LoginSerializer
+from rest_auth.serializers import UserDetailsSerializer, LoginSerializer, TokenSerializer
 from rest_framework import serializers
 
 from BillSays.models import Check, Friend, CheckElement, Mention, UserCheckElement
@@ -62,4 +62,10 @@ class JWTSerializerNew(serializers.Serializer):
     Serializer for JWT authentication.
     """
     token = serializers.CharField()
+    user = UserDetailsSerializerNew()
+
+class TokenSerializerNew(TokenSerializer):
+    """
+    Serializer for JWT authentication.
+    """
     user = UserDetailsSerializerNew()
