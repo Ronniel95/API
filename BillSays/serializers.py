@@ -72,4 +72,4 @@ class TokenSerializerNew(TokenSerializer):
 
     class Meta(UserDetailsSerializer.Meta):
         model = User
-        fields = ('id', 'username', 'email')
+        fields = ('key', 'user')
