@@ -68,5 +68,4 @@ class TokenSerializerNew(TokenSerializer):
     """
     Serializer for token authentication.
     """
-    token = serializers.CharField()
     user = UserDetailsSerializerNew()
