@@ -69,3 +69,7 @@ class TokenSerializerNew(TokenSerializer):
     Serializer for token authentication.
     """
     user = UserDetailsSerializerNew()
+
+    class Meta(UserDetailsSerializer.Meta):
+        model = User
+        fields = ('id', 'username', 'email')
