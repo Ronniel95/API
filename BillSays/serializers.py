@@ -66,6 +66,7 @@ class JWTSerializerNew(serializers.Serializer):
 
 class TokenSerializerNew(TokenSerializer):
     """
-    Serializer for JWT authentication.
+    Serializer for token authentication.
     """
+    token = serializers.CharField()
     user = UserDetailsSerializerNew()
