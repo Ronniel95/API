@@ -272,7 +272,7 @@ class LoginView(GenericAPIView):
         if getattr(settings, 'REST_USE_JWT', False):
             response_serializer = JWTSerializerNew
         else:
-            response_serializer = TokenSerializer
+            response_serializer = JWTSerializerNew#TokenSerializer
         return response_serializer
 
     def login(self):
