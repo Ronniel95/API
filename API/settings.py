@@ -74,6 +74,7 @@ INSTALLED_APPS = [
 REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'BillSays.serializers.UserDetailsSerializerNew',
     'JWT_SERIALIZER':'BillSays.serializers.JWTSerializerNew',
+    'TOKEN_SERIALIZER':'BillSays.serializers.TokenSerializerNew',
 }
 
 REST_USE_JWT = False
