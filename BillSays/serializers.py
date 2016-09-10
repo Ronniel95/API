@@ -71,5 +71,4 @@ class TokenSerializerNew(TokenSerializer):
     user = UserDetailsSerializerNew()
 
     class Meta(TokenSerializer.Meta):
-        model = User
         fields = ('key', 'user')
