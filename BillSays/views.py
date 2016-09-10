@@ -129,7 +129,8 @@ class CheckViewSet(viewsets.ModelViewSet):
         serializer = CheckSerializer(data=request.data)
         if serializer.is_valid():
             test = serializer.save()
-            receipt = 'dd'#procces_receipt_image(test.image_url)
+            from BillSays.Processing.Pipeline_GreVitRon import procces_receipt_image
+            receipt = procces_receipt_image(test.image_url)
             self.generate_check(test,receipt)
             self.generate_dishes(test,receipt)#,temp.formed_dish_list)
             return Response(RecognizedCheckSerializer(instance=test).data)
